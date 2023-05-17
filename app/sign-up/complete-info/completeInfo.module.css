@@ -1,0 +1,148 @@
+.container{
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #1C212D;
+}
+
+.formWrapper{
+    display: flex;
+    width: 28%;
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    flex-direction: column;
+    padding: 16px 20px;
+}
+
+.formWrapper *{
+    color: #F9F9F9;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+
+.formTitle{
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 42px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.input{
+    display: flex;
+    flex: 1;
+    background-color: rgba(255,255,255,0.07);
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 20px;
+    margin-bottom: 15px;
+}
+
+.inputDescription{
+    display: flex;
+    flex-wrap: wrap;
+    background-color: rgba(255,255,255,0.07);
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 400;
+    padding: 0px 20px;
+    margin-bottom: 15px;
+    height: 90px;
+}
+
+.labelText{
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.btnSignUp{
+    display: flex;
+    width: 30%;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFD731;
+    color: #1A1A1A;
+    padding: 10px 0;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    transition: all ease 0.3s;
+    align-self: flex-end;
+}
+
+.btnSignUp:hover{
+    background-color: #D4B200;
+}
+
+.socialWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+    flex: 1;
+}
+.btnSocial{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    border-radius: 3px;
+    padding: 5px 10px;
+    background-color: rgba(255,255,255,0.27);
+    color: #F9F9F9;
+    text-align: center;
+    transition: all ease 0.3s;
+}
+
+.btnSocial:hover{
+    background-color: rgba(255,255,255,0.1);
+    cursor: pointer;
+}
+
+/* Select */
+
+.selectWrapper{
+    display: flex;
+    flex: 1;
+    align-items: center;
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.selectWrapper::after {
+    content: "<";
+    rotate: 270deg;
+    font-size: 1rem;
+    top: 18px;
+    right: 20px;
+    position: absolute;
+  }
+.selectJobCategories {
+    display: flex;
+    flex: 1;
+    padding: 20px;
+    background-color: rgba(255,255,255,0.07);
+    border-radius: 4px;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.jobCategoriesWrapper{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    flex-wrap: wrap;
+}

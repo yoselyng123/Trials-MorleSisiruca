@@ -1,0 +1,22 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 5px;
+    align-items: center;
+    background-color: rgba(255,255,255,0.07);
+    border-radius: 20px;
+    padding: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    max-width: fit-content;
+    min-width: max-content
+}
+.jobTitle{
+    font-size: 11px;
+    text-align: center;
+}
+
+.icon:hover{
+    cursor: pointer;
+}

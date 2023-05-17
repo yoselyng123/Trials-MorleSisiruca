@@ -1,0 +1,28 @@
+.btnWrapper{
+    background-color: #FFD731;
+    padding: 16px 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-decoration: none;
+}
+
+.btnWrapper2{
+    background-color: #F9F9F9;
+    padding: 16px 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-decoration: none;
+}
+
+.btnText{
+    text-decoration: none;
+    color: #1A1A1A;
+    font-weight: 500;
+    font-size: 15px;
+}

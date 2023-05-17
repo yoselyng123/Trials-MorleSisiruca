@@ -1,0 +1,13 @@
+.main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #1C212D;
+}
+.btnWrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 20%;
+}
