@@ -15,7 +15,8 @@ export async function signUpWitnEmailAndPassword(email, password) {
   let userRef = null;
   let errorSignUp = null;
   try {
-    userRef = await createUserWithEmailAndPassword(auth, email, password);
+    userRef = (await createUserWithEmailAndPassword(auth, email, password))
+      .user;
     console.log('USER CREATED SUCCESSFULLY');
   } catch (e) {
     errorSignUp = e;
@@ -177,8 +178,10 @@ export async function signUpWithEmailAndPasswordCompany(
 ) {
   let userRef = null;
   let errorSignUp = null;
+  let errorAddData = null;
   try {
-    userRef = await createUserWithEmailAndPassword(auth, email, password);
+    userRef = (await createUserWithEmailAndPassword(auth, email, password))
+      .user;
     console.log('USER CREATED SUCCESSFULLY');
   } catch (e) {
     errorSignUp = e;
