@@ -8,7 +8,7 @@ import { AiOutlineGoogle, AiFillGithub, AiFillLinkedin } from 'react-icons/ai';
 import {
   signUpWithGithub,
   signUpWithGoogle,
-  signUpWitnEmailAndPassword,
+  signUpWithEmailAndPassword,
 } from '@/src/firebase/auth/signup';
 
 function SignUpPage() {
@@ -20,7 +20,7 @@ function SignUpPage() {
   const handleSubmitForm = async (event) => {
     event.preventDefault();
 
-    const { error } = await signUpWitnEmailAndPassword(email, password);
+    const { error } = await signUpWithEmailAndPassword(email, password);
 
     if (error) {
       //TODO: Handle Error here

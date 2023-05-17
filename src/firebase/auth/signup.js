@@ -11,7 +11,7 @@ const GoogleProvider = new GoogleAuthProvider();
 
 const GithubProvider = new GithubAuthProvider();
 
-export async function signUpWitnEmailAndPassword(email, password) {
+export async function signUpWithEmailAndPassword(email, password) {
   let userRef = null;
   let errorSignUp = null;
   try {

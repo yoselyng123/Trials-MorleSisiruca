@@ -38,7 +38,7 @@ export async function signInWitnEmailAndPassword(email, password) {
   let result = null,
     error = null;
   try {
-    result = await signInWithEmailAndPassword(auth, email, password);
+    result = (await signInWithEmailAndPassword(auth, email, password)).user;
     console.log('USER SUCCESSFULLY SIGNED IN');
   } catch (e) {
     error = e;
