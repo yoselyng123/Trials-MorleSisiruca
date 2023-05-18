@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import styles from './searchBar.module.css';
 import { AiOutlineClose, AiOutlineSearch } from 'react-icons/ai';
+import useOnclickOutside from 'react-cool-onclickoutside';
 
 function SearchBar({ placeholder, data, setSelectedData, selectedData }) {
   const [searchValue, setSearchValue] = useState('');
@@ -33,8 +34,13 @@ function SearchBar({ placeholder, data, setSelectedData, selectedData }) {
     }
   };
 
+  const ref = useOnclickOutside(() => {
+    // When user clicks outside of the component, we can dismiss
+    setFilteredData([]);
+  });
+
   return (
-    <div className={styles.container} onMouseLeave={() => setFilteredData([])}>
+    <div className={styles.container} ref={ref}>
       <div className={styles.searchBarWrapper}>
         <input
           type='text'
@@ -45,7 +51,13 @@ function SearchBar({ placeholder, data, setSelectedData, selectedData }) {
         />
 
         {searchValue !== '' ? (
-          <AiOutlineClose size={20} />
+          <AiOutlineClose
+            size={20}
+            onClick={() => {
+              setSearchValue('');
+              setFilteredData([]);
+            }}
+          />
         ) : (
           <AiOutlineSearch size={22} />
         )}
