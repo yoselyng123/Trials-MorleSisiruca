@@ -1,6 +1,7 @@
 import { AuthContextProvider } from '@/src/context/AuthContext';
 import './globals.css';
 import { Roboto } from 'next/font/google';
+import SideBar from './components/SideBar/SideBar';
 
 const roboto = Roboto({
   weight: ['400', '500', '700'],
@@ -17,7 +18,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang='en'>
       <body className={roboto.className}>
-        <AuthContextProvider>{children}</AuthContextProvider>
+        <AuthContextProvider>
+          <SideBar />
+          {children}
+        </AuthContextProvider>
       </body>
     </html>
   );
