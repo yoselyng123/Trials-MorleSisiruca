@@ -1,25 +1,15 @@
 'use client';
 import JobCategory from '@/app/components/JobCategory/JobCategory';
 import styles from './completeInfo.module.css';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useAuthContext } from '@/src/context/AuthContext';
 import { useRouter } from 'next/navigation';
 import { updateUserProfessional } from '@/src/firebase/auth/signup';
-
-const jobCategories = [
-  'Information Technology (IT)',
-  'Sales and Marketing',
-  'Health and Medicine',
-  'Finance and Accounting',
-  'Human Resources',
-  'Education',
-  'Engineering',
-  'Customer Service',
-  'Arts and Design',
-  'Legal',
-];
+import { jobCategories, expertiseAreas } from '@/src/data/data';
+import SearchBar from '@/app/components/SearchBar/SearchBar';
 
 function page() {
+  //TODO: AGREGAR GUARD
   const router = useRouter();
   const { user, setUser } = useAuthContext();
 
@@ -27,27 +17,17 @@ function page() {
   const [lastname, setLastname] = useState('');
   const [description, setDescription] = useState('');
   const [listJobCategories, setListJobCategories] = useState([]);
-
-  // useEffect(() => {
-  //   if (user == null) router.push('/');
-  // }, [user]);
-
-  const handleSelectJob = (event) => {
-    var copyOfListJobCategories = [...listJobCategories];
-    if (
-      copyOfListJobCategories.find(
-        (element) => element === event.target.value
-      ) !== event.target.value
-    ) {
-      copyOfListJobCategories.push(event.target.value);
-      setListJobCategories(copyOfListJobCategories);
-    }
-  };
+  const [listExpertiseAreas, setListExpertiseAreas] = useState([]);
 
   const handleDeleteJob = (index) => {
     var copyOfListJobCategories = [...listJobCategories];
-    copyOfListJobCategories.pop(index);
+    copyOfListJobCategories.splice(index, 1);
     setListJobCategories(copyOfListJobCategories);
+  };
+  const handleDeleteExpertiseArea = (index) => {
+    var copyOfListExpertiseArea = [...listExpertiseAreas];
+    copyOfListExpertiseArea.splice(index, 1);
+    setListExpertiseAreas(copyOfListExpertiseArea);
   };
 
   const userInputValidations = () => {
@@ -62,7 +42,8 @@ function page() {
       name,
       lastname,
       description,
-      listJobCategories
+      listJobCategories,
+      listExpertiseAreas
     );
 
     if (errorGet) {
@@ -118,37 +99,42 @@ function page() {
         <label htmlFor='password' className={styles.labelText}>
           Job Categories
         </label>
-        <div className={styles.selectWrapper}>
-          <select
-            name='categories'
-            id='categories'
-            className={styles.selectJobCategories}
-            required
-            value={listJobCategories.at(-1)}
-            onChange={handleSelectJob}
-          >
-            <option disabled hidden>
-              Select job categories of your interest
-            </option>
-            {jobCategories.map((element, index) => (
-              <option value={element} key={index}>
-                {element}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className={styles.jobCategoriesWrapper}>
-          {listJobCategories.length > 0 &&
-            listJobCategories.map((job, index) => (
-              <JobCategory
-                key={index}
-                title={job}
-                index={index}
-                handleDelete={handleDeleteJob}
-              />
-            ))}
-        </div>
+        <SearchBar
+          placeholder='Enter job categories of your interest'
+          data={jobCategories}
+          setSelectedData={setListJobCategories}
+          selectedData={listJobCategories}
+        />
 
+        <div className={styles.jobCategoriesWrapper}>
+          {listJobCategories.map((job, index) => (
+            <JobCategory
+              key={index}
+              title={job}
+              index={index}
+              handleDelete={handleDeleteJob}
+            />
+          ))}
+        </div>
+        <label htmlFor='password' className={styles.labelText}>
+          Expertise Areas
+        </label>
+        <SearchBar
+          placeholder='Enter expertise areas'
+          data={expertiseAreas}
+          setSelectedData={setListExpertiseAreas}
+          selectedData={listExpertiseAreas}
+        />
+        <div className={styles.jobCategoriesWrapper}>
+          {listExpertiseAreas.map((job, index) => (
+            <JobCategory
+              key={index}
+              title={job}
+              index={index}
+              handleDelete={handleDeleteExpertiseArea}
+            />
+          ))}
+        </div>
         <button type='submit' className={styles.btnSignUp}>
           Continue
         </button>

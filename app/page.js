@@ -15,21 +15,21 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.btnWrapper}>
-        <ActionBtn title='Sign In' link='/sign-in' primary={true} />
-        <ActionBtn title='Sign Up' link='/sign-up' />
-        <ActionBtn title='Sign Up Empresa' link='/sign-up-company' />
         {user ? (
-          <button className={styles.btnSignUp} onClick={() => auth.signOut()}>
-            Log out
-          </button>
-        ) : null}
+          <>
+            <p>{user.name}</p>
+            <button className={styles.btnSignUp} onClick={() => auth.signOut()}>
+              Log out
+            </button>
+          </>
+        ) : (
+          <>
+            <ActionBtn title='Sign In' link='/sign-in' primary={true} />
+            <ActionBtn title='Sign Up' link='/sign-up' />
+            <ActionBtn title='Sign Up Empresa' link='/sign-up-company' />
+          </>
+        )}
       </div>
-
-      {user && user.name && (
-        <div>
-          <p>{user.name}</p>
-        </div>
-      )}
     </main>
   );
 }

@@ -10,7 +10,6 @@
     flex-wrap: wrap;
     margin-bottom: 10px;
     max-width: fit-content;
-    min-width: max-content
 }
 .jobTitle{
     font-size: 11px;

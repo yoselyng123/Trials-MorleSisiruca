@@ -12,8 +12,9 @@ const GoogleProvider = new GoogleAuthProvider();
 const GithubProvider = new GithubAuthProvider();
 
 export async function signUpWithEmailAndPassword(email, password) {
-  let userRef = null;
-  let errorSignUp = null;
+  var userRef = null;
+  var errorSignUp = null;
+  var errorAddData = null;
   try {
     userRef = (await createUserWithEmailAndPassword(auth, email, password))
       .user;
@@ -83,7 +84,8 @@ export async function signUpWithGoogle() {
 // GITHUB AUTH
 export async function signUpWithGithub() {
   var userRef = null;
-  var error = null;
+  var errorSignUp = null;
+  var errorAddData = null;
   await signInWithPopup(auth, GithubProvider)
     .then((result) => {
       // The signed-in user info.
@@ -97,7 +99,7 @@ export async function signUpWithGithub() {
       // The AuthCredential type that was used.
       const credential = GithubAuthProvider.credentialFromError(e);
       // ...
-      error = e.message;
+      errorSignUp = e.message;
     });
 
   // add user info to firestore db
@@ -113,9 +115,10 @@ export async function signUpWithGithub() {
     );
   } catch (e) {
     console.log(e);
+    errorAddData = e;
   }
 
-  return { userRef, error };
+  return { userRef, errorSignUp, errorAddData };
 }
 
 // Update User info Professional
@@ -124,7 +127,8 @@ export async function updateUserProfessional(
   name,
   lastname,
   description,
-  jobCategories
+  jobCategories,
+  listExpertiseAreas
 ) {
   var errorUpdate = null;
   // update info in firestore db
@@ -137,6 +141,7 @@ export async function updateUserProfessional(
         lastname,
         description,
         jobCategories,
+        listExpertiseAreas,
         role: 'Professional',
       },
       {
