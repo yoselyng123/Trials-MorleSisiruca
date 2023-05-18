@@ -178,7 +178,7 @@ export async function signUpWithEmailAndPasswordCompany(
   email,
   password,
   name,
-  ubication,
+  mapCoordinates,
   webUrl
 ) {
   let userRef = null;
@@ -200,7 +200,7 @@ export async function signUpWithEmailAndPasswordCompany(
       {
         email: userRef.email,
         name,
-        ubication,
+        mapCoordinates,
         webUrl,
       },
       {

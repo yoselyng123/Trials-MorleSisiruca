@@ -1,19 +1,28 @@
 'use client';
 import styles from './SignUpCompany.module.css';
 import { useState } from 'react';
-import { useAuthContext } from '@/src/context/AuthContext';
 import { useRouter } from 'next/navigation';
 import { signUpWithEmailAndPasswordCompany } from '@/src/firebase/auth/signup';
+import { useLoadScript } from '@react-google-maps/api';
+import Map from '../components/Map/Map';
+import Places from '../components/Places/Places';
 
 function page() {
   const router = useRouter();
-  const { user, setUser } = useAuthContext();
+  // const { isLoaded } = useLoadScript({
+  //   googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY,
+  //   libraries: ['places'],
+  // });
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [ubication, setUbication] = useState('');
+  const [location, setLocation] = useState('');
   const [webUrl, setWebUrl] = useState('');
+  const [mapCoordinates, setMapCoordinates] = useState({
+    lat: 10.491,
+    lng: -66.902,
+  });
 
   const userInputValidations = () => {
     //TODO: HACER VALIDACIONES
@@ -28,7 +37,7 @@ function page() {
         email,
         password,
         name,
-        ubication,
+        mapCoordinates,
         webUrl
       );
 
@@ -90,15 +99,15 @@ function page() {
           onChange={(e) => setWebUrl(e.target.value)}
         />
         <label htmlFor='username' className={styles.labelText}>
-          Ubication
+          Location
         </label>
         <input
           type='text'
-          placeholder='ubication'
-          id='ubication'
+          placeholder="Enter your company's location"
+          id='location'
           className={styles.input}
-          value={ubication}
-          onChange={(e) => setUbication(e.target.value)}
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
         />
 
         <button type='submit' className={styles.btnSignUp}>
