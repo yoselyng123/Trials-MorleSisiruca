@@ -1,0 +1,54 @@
+.container{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 4px;
+    transition: all ease .3s;
+    padding: 15px;
+    text-decoration: none;
+}
+.container2{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 4px;
+    transition: all ease .3s;
+    padding: 15px;
+    background-color: #FFD731;
+    margin-bottom: 10px;
+    text-decoration: none;
+}
+.container2:hover{
+    background-color: #D4B200;
+    cursor: pointer;
+}
+
+.container:hover{
+    background-color: #FFD731;
+    cursor: pointer;
+}
+.container:hover .text{
+    color: #000;
+}
+.container .iconWrapper > svg{
+    transition: all ease .3s;
+}
+.container:hover .iconWrapper > svg{
+    fill: #000;
+    color: #000;
+}
+
+.text{
+    font-size: 16;
+    color: #7C8AA3;
+    font-weight: 500;
+    transition: all ease .3s;
+    
+}
+.text2{
+    font-size: 16;
+    color: #000;
+    font-weight: 500;
+    transition: all ease .3s;
+   
+}

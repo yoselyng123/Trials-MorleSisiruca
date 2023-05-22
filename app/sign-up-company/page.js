@@ -19,10 +19,7 @@ function page() {
   const [password, setPassword] = useState('');
   const [location, setLocation] = useState('');
   const [webUrl, setWebUrl] = useState('');
-  const [mapCoordinates, setMapCoordinates] = useState({
-    lat: 10.491,
-    lng: -66.902,
-  });
+  const [mapCoordinates, setMapCoordinates] = useState({});
 
   const userInputValidations = () => {
     //TODO: HACER VALIDACIONES
@@ -37,7 +34,7 @@ function page() {
         email,
         password,
         name,
-        mapCoordinates,
+        location,
         webUrl
       );
 

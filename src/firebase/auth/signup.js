@@ -1,4 +1,4 @@
-import { firebase_app, auth, db } from '../firebase.config';
+import { auth, db } from '../firebase.config';
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
@@ -121,6 +121,47 @@ export async function signUpWithGithub() {
   return { userRef, errorSignUp, errorAddData };
 }
 
+// Sign Up User info Company
+export async function signUpWithEmailAndPasswordCompany(
+  email,
+  password,
+  name,
+  location,
+  webUrl
+) {
+  let userRef = null;
+  let errorSignUp = null;
+  let errorAddData = null;
+  try {
+    userRef = (await createUserWithEmailAndPassword(auth, email, password))
+      .user;
+    console.log('USER CREATED SUCCESSFULLY');
+  } catch (e) {
+    errorSignUp = e;
+    console.log(errorSignUp);
+  }
+
+  // add user info to firestore db
+  try {
+    await setDoc(
+      doc(db, 'Users', userRef.uid),
+      {
+        email: userRef.email,
+        name,
+        location,
+        webUrl,
+      },
+      {
+        merge: true,
+      }
+    );
+  } catch (e) {
+    errorAddData = e.message;
+  }
+
+  return { userRef, errorSignUp, errorAddData };
+}
+
 // Update User info Professional
 export async function updateUserProfessional(
   user,
@@ -173,43 +214,31 @@ export async function updateUserProfessional(
 
   return { userRef, errorUpdate, errorGet };
 }
-// Update User info Company
-export async function signUpWithEmailAndPasswordCompany(
-  email,
-  password,
-  name,
-  mapCoordinates,
-  webUrl
-) {
-  let userRef = null;
-  let errorSignUp = null;
-  let errorAddData = null;
-  try {
-    userRef = (await createUserWithEmailAndPassword(auth, email, password))
-      .user;
-    console.log('USER CREATED SUCCESSFULLY');
-  } catch (e) {
-    errorSignUp = e;
-    console.log(errorSignUp);
-  }
 
-  // add user info to firestore db
+// Update User info Company
+export async function updateUserCompany(user, name, location, webUrl) {
+  let errorAddData = null;
+  let userRef = null;
+
+  // update user info to firestore db
   try {
-    await setDoc(
-      doc(db, 'Users', userRef.uid),
+    userRef = await updateDoc(
+      doc(db, 'Users', user.uid),
       {
-        email: userRef.email,
+        email: user.email,
         name,
-        mapCoordinates,
+        location,
         webUrl,
       },
       {
         merge: true,
       }
     );
+    console.log('UPDATED: ');
+    console.log(userRef);
   } catch (e) {
     errorAddData = e.message;
   }
 
-  return { userRef, errorSignUp, errorAddData };
+  return { userRef, errorAddData };
 }

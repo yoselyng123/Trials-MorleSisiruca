@@ -1,12 +1,17 @@
 .btnWrapper{
     background-color: #FFD731;
-    padding: 16px 12px;
+    padding: 10px 15px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    border-radius: 10px;
-    margin-bottom: 20px;
+    border-radius: 15px;
     text-decoration: none;
+    width: 100px;
+    transition: all ease .3s;
+}
+.btnWrapper:hover{
+    background-color: #D4B200;
+    cursor: pointer;
 }
 
 .btnWrapper2{
@@ -25,4 +30,10 @@
     color: #1A1A1A;
     font-weight: 500;
     font-size: 15px;
+}
+
+.iconWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

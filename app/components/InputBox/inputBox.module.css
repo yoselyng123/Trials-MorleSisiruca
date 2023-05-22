@@ -1,0 +1,27 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin-bottom: 20px;
+}
+
+.input{
+    display: flex;
+    flex: 1;
+    background-color: rgba(255,255,255,0.07);
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 20px;
+    outline: none;
+    border: 1px solid #7C8AA3;
+}
+
+.labelText{
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #5B6976;
+    letter-spacing: 0.7px;
+}
+

@@ -1,14 +1,11 @@
-import Link from 'next/link';
 import styles from './actionBtn.module.css';
 
-function ActionBtn({ title, link, primary }) {
+function ActionBtn({ title, icon, actionFunction }) {
   return (
-    <Link
-      href={link}
-      className={primary ? styles.btnWrapper : styles.btnWrapper2}
-    >
+    <div className={styles.btnWrapper} onClick={actionFunction}>
       <p className={styles.btnText}>{title}</p>
-    </Link>
+      <div className={styles.iconWrapper}>{icon}</div>
+    </div>
   );
 }
 

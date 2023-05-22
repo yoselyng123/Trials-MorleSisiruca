@@ -20,7 +20,7 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        // User is signed in, see docs for a list of available properties
+        // User is signed in
         const { userRef, errorGet } = await getUserFromDB(user);
         setUser(userRef);
       } else {

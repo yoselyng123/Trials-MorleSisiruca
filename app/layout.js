@@ -19,8 +19,10 @@ export default function RootLayout({ children }) {
     <html lang='en'>
       <body className={roboto.className}>
         <AuthContextProvider>
-          <SideBar />
-          {children}
+          <div className='sidebarWrapper'>
+            <SideBar />
+          </div>
+          <div className='contentWrapper'>{children}</div>
         </AuthContextProvider>
       </body>
     </html>
