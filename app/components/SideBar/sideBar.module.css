@@ -1,13 +1,18 @@
 .container{
     display: flex;
+    position: fixed;
+    top: 0;
     flex: 1;
     background-color: #1C212D;
     min-height: 100vh;
-    height: fit-content;
+    height: 100%;
     flex-direction: column;
     padding: 20px;
     justify-content: space-between;
     overflow-y: auto;
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
 }
 
 .titleWrapper{

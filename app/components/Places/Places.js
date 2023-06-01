@@ -6,7 +6,7 @@ import useOnclickOutside from 'react-cool-onclickoutside';
 import styles from './places.module.css';
 import { AiOutlineClose, AiOutlineSearch } from 'react-icons/ai';
 
-function Places({ setLocation, setMapCoordinates }) {
+function Places({ setLocation, setMapCoordinates, location }) {
   const {
     ready,
     value,
@@ -23,22 +23,22 @@ function Places({ setLocation, setMapCoordinates }) {
   const handleInput = (e) => {
     // Update the keyword of the input element
     setValue(e.target.value);
-    setUbication(e.target.value);
+    setLocation(e.target.value);
   };
 
   const handleSelect =
     ({ description }) =>
     () => {
       setValue(description, false);
-      setUbication(description);
-      clearSuggestions();
-
+      setLocation(description);
       // Get latitude and longitude via utility functions
       getGeocode({ address: description }).then((results) => {
         const { lat, lng } = getLatLng(results[0]);
+        console.log(results[0].formatted_address);
         console.log('📍 Coordinates: ', { lat, lng });
         setMapCoordinates({ lat, lng });
       });
+      clearSuggestions();
     };
 
   const renderSuggestions = () =>
@@ -64,19 +64,19 @@ function Places({ setLocation, setMapCoordinates }) {
     <div ref={ref}>
       <div className={styles.searchBarWrapper}>
         <input
-          value={value}
+          value={location}
           onChange={handleInput}
           disabled={!ready}
           placeholder="Enter your company's location"
           className={styles.searchBar}
         />
 
-        {value !== '' ? (
+        {location !== '' ? (
           <AiOutlineClose
             size={20}
             onClick={() => {
               clearSuggestions();
-              setUbication('');
+              setLocation('');
               setValue('');
             }}
           />

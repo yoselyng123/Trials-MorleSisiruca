@@ -9,10 +9,11 @@ import Places from '../components/Places/Places';
 
 function page() {
   const router = useRouter();
-  // const { isLoaded } = useLoadScript({
-  //   googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY,
-  //   libraries: ['places'],
-  // });
+  const [libraries] = useState(['places']);
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY,
+    libraries,
+  });
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -98,14 +99,29 @@ function page() {
         <label htmlFor='username' className={styles.labelText}>
           Location
         </label>
-        <input
+        {/* <input
           type='text'
           placeholder="Enter your company's location"
           id='location'
           className={styles.input}
           value={location}
           onChange={(e) => setLocation(e.target.value)}
-        />
+        /> */}
+
+        {isLoaded && (
+          <>
+            <Places
+              setLocation={setLocation}
+              setMapCoordinates={setMapCoordinates}
+              location={location}
+            />
+            <Map
+              mapCoordinates={mapCoordinates}
+              setMapCoordinates={setMapCoordinates}
+              setLocation={setLocation}
+            />
+          </>
+        )}
 
         <button type='submit' className={styles.btnSignUp}>
           Sign up

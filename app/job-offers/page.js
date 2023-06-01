@@ -1,7 +1,7 @@
-import React from 'react';
+import styles from './jobOffers.module.css';
 
 function pages() {
-  return <div>Jobs</div>;
+  return <div className={styles.container}>Jobs</div>;
 }
 
 export default pages;

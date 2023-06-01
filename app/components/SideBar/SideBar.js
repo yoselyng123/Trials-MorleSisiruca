@@ -27,11 +27,14 @@ function SideBar() {
           icon={<MdSpaceDashboard size={20} fill='#7C8AA3' />}
           link='/dashboard'
         />
-        <SideOption
-          title='Profile'
-          icon={<CgProfile size={20} color='#7C8AA3' />}
-          link='/profile'
-        />
+        {user && (
+          <SideOption
+            title='Profile'
+            icon={<CgProfile size={20} color='#7C8AA3' />}
+            link='/profile'
+          />
+        )}
+
         <SideOption
           title='Notifications'
           icon={<BsBellFill size={20} fill='#7C8AA3' />}
