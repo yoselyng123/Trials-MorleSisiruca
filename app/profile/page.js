@@ -15,6 +15,10 @@ function page() {
   const [email, setEmail] = useState('');
   const [location, setLocation] = useState('');
   const [webUrl, setWebUrl] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [description, setDescription] = useState('');
+  const [listJobCategories, setListJobCategories] = useState([]);
+  const [listExpertiseAreas, setListExpertiseAreas] = useState([]);
 
   const router = useRouter();
 
@@ -26,8 +30,13 @@ function page() {
     } else {
       setName(user.name);
       setEmail(user.email);
-      setLocation(user.location);
-      setWebUrl(user.webUrl);
+      if (user.role === 'Professional') {
+        setLastname(user.lastname);
+        setDescription(user.description);
+      } else {
+        setLocation(user.location);
+        setWebUrl(user.webUrl);
+      }
     }
   }, []);
 
@@ -42,53 +51,81 @@ function page() {
     }
   };
 
-  return (
-    <div className={styles.container}>
-      <div className={styles.topWrapper}>
-        <div className={styles.topLeftWrapper}>
-          <p className={styles.pageTitleTop}>My Profile</p>
-          <BiChevronRight size={18} fill='#000' />
-          <p className={styles.pageSubtitleTop}>Edit Profile</p>
+  if (user) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.topWrapper}>
+          <div className={styles.topLeftWrapper}>
+            <p className={styles.pageTitleTop}>My Profile</p>
+            <BiChevronRight size={18} fill='#000' />
+            <p className={styles.pageSubtitleTop}>Edit Profile</p>
+          </div>
+          <div className={styles.topLeftWrapper}>
+            <ActionBtn
+              title='Save'
+              icon={<AiOutlineArrowRight size={18} fill='#000' />}
+              actionFunction={() => handleUpdateUserInfo()}
+            />
+          </div>
         </div>
-        <div className={styles.topLeftWrapper}>
-          <ActionBtn
-            title='Save'
-            icon={<AiOutlineArrowRight size={18} fill='#000' />}
-            actionFunction={() => handleUpdateUserInfo()}
-          />
+        <div className={styles.infoWrapper}>
+          <Avatar sx={{ height: 120, width: 120 }} />
+          <div className={styles.inputWrapper}>
+            <InputBox
+              value={email}
+              setValue={setEmail}
+              placeholder='Enter the email of the company'
+              label='Email'
+            />
+
+            {user.role === 'Professional' ? (
+              <>
+                <InputBox
+                  value={name}
+                  setValue={setName}
+                  placeholder='Enter your name '
+                  label='Name'
+                />
+                <InputBox
+                  value={lastname}
+                  setValue={setLastname}
+                  placeholder='Enter your last name'
+                  label='Last Name'
+                />
+                <InputBox
+                  value={description}
+                  setValue={setDescription}
+                  placeholder='Enter your description'
+                  label='Description'
+                />
+              </>
+            ) : (
+              <>
+                <InputBox
+                  value={name}
+                  setValue={setName}
+                  placeholder='Enter the name of the company'
+                  label='Company Name'
+                />
+                <InputBox
+                  value={webUrl}
+                  setValue={setWebUrl}
+                  placeholder='Enter the web url of the company'
+                  label='Web Url'
+                />
+                <InputBox
+                  value={location}
+                  setValue={setLocation}
+                  placeholder='Enter the location of the company'
+                  label='Location'
+                />
+              </>
+            )}
+          </div>
         </div>
       </div>
-      <div className={styles.infoWrapper}>
-        <Avatar sx={{ height: 120, width: 120 }} />
-        <div className={styles.inputWrapper}>
-          <InputBox
-            value={name}
-            setValue={setName}
-            placeholder='Enter the name of the company'
-            label='Company Name'
-          />
-          <InputBox
-            value={email}
-            setValue={setEmail}
-            placeholder='Enter the email of the company'
-            label='Email'
-          />
-          <InputBox
-            value={webUrl}
-            setValue={setWebUrl}
-            placeholder='Enter the web url of the company'
-            label='Web Url'
-          />
-          <InputBox
-            value={location}
-            setValue={setLocation}
-            placeholder='Enter the location of the company'
-            label='Location'
-          />
-        </div>
-      </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default page;

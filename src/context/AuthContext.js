@@ -1,13 +1,9 @@
 'use client';
 import { useContext, createContext, useState, useEffect } from 'react';
-import { onAuthStateChanged, getAuth } from 'firebase/auth';
-import { firebase_app } from '../firebase/firebase.config';
-import { doc, getDoc, getFirestore } from 'firebase/firestore';
-import { getUserFromDB } from '../firebase/auth/signin';
-
-const auth = getAuth(firebase_app);
-
-const db = getFirestore(firebase_app);
+import { createUser, getUser } from '../firebase/auth/signup';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../firebase/firebase.config';
+import { useRouter } from 'next/navigation';
 
 export const AuthContext = createContext({});
 
@@ -17,16 +13,30 @@ export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const router = useRouter();
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         // User is signed in
-        const { userRef, errorGet } = await getUserFromDB(user);
-        setUser(userRef);
+        const { userRef, errorGet } = await getUser(user);
+        if (userRef) {
+          setUser(userRef);
+        } else {
+          const errorAddData = await createUser(user);
+          if (!errorAddData) {
+            setUser({
+              email: user.email,
+              uid: user.uid,
+            });
+            router.push('/sign-up/complete-info');
+          }
+        }
       } else {
         // User is signed out
         setUser(null);
       }
+      setLoading(false);
     });
     return () => {
       unsubscribe();

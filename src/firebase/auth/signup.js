@@ -11,10 +11,10 @@ const GoogleProvider = new GoogleAuthProvider();
 
 const GithubProvider = new GithubAuthProvider();
 
+// Email and Password Auth
 export async function signUpWithEmailAndPassword(email, password) {
   var userRef = null;
   var errorSignUp = null;
-  var errorAddData = null;
   try {
     userRef = (await createUserWithEmailAndPassword(auth, email, password))
       .user;
@@ -24,132 +24,52 @@ export async function signUpWithEmailAndPassword(email, password) {
     console.log(errorSignUp);
   }
 
-  // add user info to firestore db
-  try {
-    await setDoc(
-      doc(db, 'Users', userRef.uid),
-      {
-        email: userRef.email,
-      },
-      {
-        merge: true,
-      }
-    );
-  } catch (e) {
-    errorAddData = e.message;
-  }
-
-  return { userRef, errorSignUp, errorAddData };
+  return { userRef, errorSignUp };
 }
+
 // GOOGLE AUTH
 export async function signUpWithGoogle() {
   var userRef = null;
   var errorSignUp = null;
-  var errorAddData = null;
 
-  await signInWithPopup(auth, GoogleProvider)
-    .then((result) => {
-      // The signed-in user info.
-      userRef = result.user;
-    })
-    .catch((e) => {
-      // Handle Errors here.
-      const errorCode = e.code;
-      const errorMessage = e.message;
-      // The AuthCredential type that was used.
-      const credential = GoogleAuthProvider.credentialFromError(e);
-      // ...
-
-      errorSignUp = errorMessage;
-    });
-
-  // add user info to firestore db
   try {
-    await setDoc(
-      doc(db, 'Users', userRef.uid),
-      {
-        email: userRef.email,
-      },
-      {
-        merge: true,
-      }
-    );
+    userRef = (await signInWithPopup(auth, GoogleProvider)).user;
   } catch (e) {
-    errorAddData = e.message;
+    // Handle Errors here.
+    const errorCode = e.code;
+    const errorMessage = e.message;
+    errorSignUp = errorMessage;
   }
 
-  return { userRef, errorSignUp, errorAddData };
+  return { userRef, errorSignUp };
 }
 
 // GITHUB AUTH
 export async function signUpWithGithub() {
   var userRef = null;
   var errorSignUp = null;
-  var errorAddData = null;
-  await signInWithPopup(auth, GithubProvider)
-    .then((result) => {
-      // The signed-in user info.
-      userRef = result.user;
-      console.log(userRef);
-    })
-    .catch((e) => {
-      // Handle Errors here.
-      const errorCode = e.code;
-      const errorMessage = e.message;
-      // The AuthCredential type that was used.
-      const credential = GithubAuthProvider.credentialFromError(e);
-      // ...
-      errorSignUp = e.message;
-    });
 
-  // add user info to firestore db
   try {
-    await setDoc(
-      doc(db, 'Users', userRef.uid),
-      {
-        email: userRef.email,
-      },
-      {
-        merge: true,
-      }
-    );
+    userRef = (await signInWithPopup(auth, GithubProvider)).user;
   } catch (e) {
-    console.log(e);
-    errorAddData = e;
+    // Handle Errors here.
+    const errorCode = e.code;
+    const errorMessage = e.message;
+    errorSignUp = errorMessage;
   }
 
-  return { userRef, errorSignUp, errorAddData };
+  return { userRef, errorSignUp };
 }
 
-// Sign Up User info Company
-export async function signUpWithEmailAndPasswordCompany(
-  email,
-  password,
-  name,
-  location,
-  webUrl
-) {
-  let userRef = null;
-  let errorSignUp = null;
-  let errorAddData = null;
-  try {
-    userRef = (await createUserWithEmailAndPassword(auth, email, password))
-      .user;
-    console.log('USER CREATED SUCCESSFULLY');
-  } catch (e) {
-    errorSignUp = e;
-    console.log(errorSignUp);
-  }
-
-  // add user info to firestore db
+// Create user
+export async function createUser(user) {
+  var errorAddData = null;
   try {
     await setDoc(
-      doc(db, 'Users', userRef.uid),
+      doc(db, 'Users', user.uid),
       {
-        email: userRef.email,
-        name,
-        location,
-        webUrl,
+        email: user.email,
+        uid: user.uid,
       },
       {
         merge: true,
@@ -159,10 +79,31 @@ export async function signUpWithEmailAndPasswordCompany(
     errorAddData = e.message;
   }
 
-  return { userRef, errorSignUp, errorAddData };
+  return errorAddData;
 }
 
-// Update User info Professional
+// Read user
+export async function getUser(user) {
+  let userRef = null;
+  let errorGet = null;
+
+  try {
+    const docSnap = await getDoc(doc(db, 'Users', user.uid));
+    if (docSnap.exists()) {
+      userRef = docSnap.data();
+      console.log('Document data:', docSnap.data());
+    } else {
+      // docSnap.data() will be undefined in this case
+      console.log('No user in db!');
+    }
+  } catch (e) {
+    errorGet = e;
+    console.log(errorGet);
+  }
+
+  return { userRef, errorGet };
+}
+// Update User Professional
 export async function updateUserProfessional(
   user,
   name,
@@ -172,12 +113,15 @@ export async function updateUserProfessional(
   listExpertiseAreas
 ) {
   var errorUpdate = null;
+  var userRefUpdate = null;
+  var errorGetUpdate = null;
   // update info in firestore db
   try {
     await updateDoc(
       doc(db, 'Users', user.uid),
       {
         email: user.email,
+        uid: user.uid,
         name,
         lastname,
         description,
@@ -189,33 +133,19 @@ export async function updateUserProfessional(
         merge: true,
       }
     );
+
+    const { userRef, errorGet } = await getUser(user);
+    userRefUpdate = userRef;
+    errorGetUpdate = errorGet;
   } catch (e) {
     errorUpdate = e;
     console.log(e);
   }
 
-  let docRef = doc(db, 'Users', user.uid);
-  let userRef = null;
-  let errorGet = null;
-
-  try {
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      userRef = docSnap.data();
-      console.log('Document data:', docSnap.data());
-    } else {
-      // docSnap.data() will be undefined in this case
-      console.log('No such document!');
-    }
-  } catch (e) {
-    errorGet = e;
-    console.log(errorGet);
-  }
-
-  return { userRef, errorUpdate, errorGet };
+  return { userRefUpdate, errorUpdate, errorGetUpdate };
 }
 
-// Update User info Company
+// Update User Company
 export async function updateUserCompany(user, name, location, webUrl) {
   let errorAddData = null;
   let userRef = null;
@@ -226,9 +156,11 @@ export async function updateUserCompany(user, name, location, webUrl) {
       doc(db, 'Users', user.uid),
       {
         email: user.email,
+        uid: user.uid,
         name,
         location,
         webUrl,
+        role: 'Company',
       },
       {
         merge: true,
@@ -241,4 +173,41 @@ export async function updateUserCompany(user, name, location, webUrl) {
   }
 
   return { userRef, errorAddData };
+}
+
+// Email and Password Auth
+export async function signUpWithEmailAndPasswordCompany(
+  email,
+  password,
+  name,
+  location,
+  webUrl
+) {
+  var userRef = null;
+  var errorSignUp = null;
+  try {
+    userRef = (await createUserWithEmailAndPassword(auth, email, password))
+      .user;
+    console.log('USER CREATED SUCCESSFULLY');
+
+    await setDoc(
+      doc(db, 'Users', userRef.uid),
+      {
+        email: userRef.email,
+        uid: userRef.uid,
+        name,
+        location,
+        webUrl,
+        role: 'Company',
+      },
+      {
+        merge: true,
+      }
+    );
+  } catch (e) {
+    errorSignUp = e;
+    console.log(errorSignUp);
+  }
+
+  return { userRef, errorSignUp };
 }

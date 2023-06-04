@@ -5,9 +5,9 @@ import { useRouter } from 'next/navigation';
 // ASSETS
 import { AiOutlineGoogle, AiFillGithub, AiFillLinkedin } from 'react-icons/ai';
 import {
-  signInWitnEmailAndPassword,
-  signInWithGoogle,
+  signInWithEmailAndPasswordAuth,
   signInWithGithub,
+  signInWithGoogle,
 } from '@/src/firebase/auth/signin';
 
 function SignInPage() {
@@ -17,35 +17,35 @@ function SignInPage() {
 
   const handleSubmitForm = async (event) => {
     event.preventDefault();
+    const { userRef, errorSignUp } = await signInWithEmailAndPasswordAuth(
+      email,
+      password
+    );
 
-    const { result, error } = await signInWitnEmailAndPassword(email, password);
-
-    // Perform navigation
-    if (error) {
-      console.log(error);
-    } else {
+    if (userRef) {
       router.push('/');
+    } else {
+      console.log('NO HAY USERREF EN SIGNIN');
     }
   };
-
   const handleSignInWithGoogle = async (event) => {
-    const { errorSignIn } = await signInWithGoogle();
+    event.preventDefault();
+    const { userRef, errorSignUp } = await signInWithGoogle();
 
-    // Perform navigation
-    if (errorSignIn) {
-      console.log(errorSignIn);
-    } else {
+    if (userRef) {
       router.push('/');
+    } else {
+      console.log('NO HAY USERREF EN SIGNIN');
     }
   };
   const handleSignInWithGithub = async (event) => {
-    const { errorSignIn } = await signInWithGithub();
+    event.preventDefault();
+    const { userRef, errorSignUp } = await signInWithGithub();
 
-    // Perform navigation
-    if (errorSignIn) {
-      console.log(errorSignIn);
-    } else {
+    if (userRef) {
       router.push('/');
+    } else {
+      console.log('NO HAY USERREF EN SIGNIN');
     }
   };
 
@@ -53,7 +53,6 @@ function SignInPage() {
     <div className={styles.container}>
       <form className={styles.formWrapper} onSubmit={handleSubmitForm}>
         <h3 className={styles.formTitle}>Sign In</h3>
-
         <label htmlFor='username' className={styles.labelText}>
           Username
         </label>
@@ -63,6 +62,7 @@ function SignInPage() {
           id='username'
           className={styles.input}
           onChange={(e) => setEmail(e.target.value)}
+          value={email}
         />
 
         <label htmlFor='password' className={styles.labelText}>
@@ -74,6 +74,7 @@ function SignInPage() {
           id='password'
           className={styles.input}
           onChange={(e) => setPassword(e.target.value)}
+          value={password}
         />
 
         <button type='submit' className={styles.btnSignUp}>

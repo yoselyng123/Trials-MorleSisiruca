@@ -20,7 +20,7 @@ function page() {
   const [password, setPassword] = useState('');
   const [location, setLocation] = useState('');
   const [webUrl, setWebUrl] = useState('');
-  const [mapCoordinates, setMapCoordinates] = useState({});
+  const [mapCoordinates, setMapCoordinates] = useState(null);
 
   const userInputValidations = () => {
     //TODO: HACER VALIDACIONES
@@ -29,22 +29,18 @@ function page() {
 
   const handleSubmitForm = async (event) => {
     event.preventDefault();
+    const { userRef, errorSignUp } = await signUpWithEmailAndPasswordCompany(
+      email,
+      password,
+      name,
+      location,
+      webUrl
+    );
 
-    const { userRef, errorSignUp, errorAddData } =
-      await signUpWithEmailAndPasswordCompany(
-        email,
-        password,
-        name,
-        location,
-        webUrl
-      );
-
-    if (errorAddData) {
-      //TODO: Handle Error here
-      console.log(errorAddData);
-    } else {
-      // Perform navigation
+    if (userRef) {
       router.push('/');
+    } else {
+      console.log('NO USERREF SIGNUP COMPANY');
     }
   };
 
@@ -99,14 +95,6 @@ function page() {
         <label htmlFor='username' className={styles.labelText}>
           Location
         </label>
-        {/* <input
-          type='text'
-          placeholder="Enter your company's location"
-          id='location'
-          className={styles.input}
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-        /> */}
 
         {isLoaded && (
           <>

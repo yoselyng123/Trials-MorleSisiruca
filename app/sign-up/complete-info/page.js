@@ -1,12 +1,13 @@
 'use client';
 import JobCategory from '@/app/components/JobCategory/JobCategory';
 import styles from './completeInfo.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuthContext } from '@/src/context/AuthContext';
 import { useRouter } from 'next/navigation';
-import { updateUserProfessional } from '@/src/firebase/auth/signup';
+/* Components */
 import { jobCategories, expertiseAreas } from '@/src/data/data';
 import SearchBar from '@/app/components/SearchBar/SearchBar';
+import { updateUserProfessional } from '@/src/firebase/auth/signup';
 
 function page() {
   //TODO: AGREGAR GUARD
@@ -18,6 +19,12 @@ function page() {
   const [description, setDescription] = useState('');
   const [listJobCategories, setListJobCategories] = useState([]);
   const [listExpertiseAreas, setListExpertiseAreas] = useState([]);
+
+  useEffect(() => {
+    if (!user) {
+      router.push('/');
+    }
+  }, []);
 
   const handleDeleteJob = (index) => {
     var copyOfListJobCategories = [...listJobCategories];
@@ -37,20 +44,23 @@ function page() {
 
   const handleCulminateRegistration = async (event) => {
     event.preventDefault();
-    const { userRef, errorGet, errorUpdate } = await updateUserProfessional(
-      user,
-      name,
-      lastname,
-      description,
-      listJobCategories,
-      listExpertiseAreas
-    );
+    const { userRefUpdate, errorUpdate, errorGetUpdate } =
+      await updateUserProfessional(
+        user,
+        name,
+        lastname,
+        description,
+        listJobCategories,
+        listExpertiseAreas
+      );
 
-    if (errorGet) {
-      console.log(errorGet);
-    } else {
-      setUser(userRef);
+    if (userRefUpdate) {
+      console.log(userRefUpdate);
+      setUser(userRefUpdate);
       router.push('/');
+    } else {
+      console.log(errorUpdate);
+      console.log(errorGetUpdate);
     }
   };
 

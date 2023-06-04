@@ -3,12 +3,11 @@ import styles from './signUp.module.css';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 // ASSETS
-import { useAuthContext } from '@/src/context/AuthContext';
 import { AiOutlineGoogle, AiFillGithub, AiFillLinkedin } from 'react-icons/ai';
 import {
-  signUpWithGithub,
-  signUpWithGoogle,
   signUpWithEmailAndPassword,
+  signUpWithGoogle,
+  signUpWithGithub,
 } from '@/src/firebase/auth/signup';
 
 function SignUpPage() {
@@ -19,36 +18,36 @@ function SignUpPage() {
 
   const handleSubmitForm = async (event) => {
     event.preventDefault();
+    const { userRef, errorSignUp } = await signUpWithEmailAndPassword(
+      email,
+      password
+    );
 
-    const { error } = await signUpWithEmailAndPassword(email, password);
-
-    if (error) {
-      //TODO: Handle Error here
-      console.log(error);
-    } else {
-      // Perform navigation
+    if (userRef) {
       router.push('/sign-up/complete-info');
+    } else {
+      console.log('NO HAY USERREF EN SIGNUP');
     }
   };
   const handleSignInWithGoogle = async (event) => {
-    const { error } = await signUpWithGoogle();
+    event.preventDefault();
+    const { userRef, errorSignUp } = await signUpWithGoogle();
 
-    if (error) {
-      //TODO: Handle Error here
-      console.log(error);
-    } else {
-      // Perform navigation
+    if (userRef) {
       router.push('/sign-up/complete-info');
+    } else {
+      console.log('NO HAY USERREF EN SIGNUP');
     }
   };
   const handleSignInWithGithub = async (event) => {
-    const { error } = await signUpWithGithub();
-    if (error) {
-      //TODO: Handle Error here
-      console.log(error);
+    event.preventDefault();
+    const { userRef, errorSignUp } = await signUpWithGithub();
+
+    if (userRef) {
+      router.push('/sign-up/complete-info');
+    } else {
+      console.log('NO HAY USERREF EN SIGNUP');
     }
-    // Perform navigation
-    router.push('/sign-up/complete-info');
   };
 
   return (
