@@ -1,0 +1,44 @@
+.personalImage {
+    text-align: center;
+  }
+  .personalImage input[type="file"] {
+    display: none;
+  }
+  .personalFigure {
+    position: relative;
+    width: 110px;
+    height: 110px;
+  }
+  .personalAvatar {
+    cursor: pointer;
+    width: 110px;
+    height: 110px;
+    border-radius: 100%;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
+    transition: all ease-in-out .3s;
+  }
+  .personalAvatar:hover {
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
+  }
+  .personalFigcaption {
+    cursor: pointer;
+    position: absolute;
+    top: 0px;
+    width: inherit;
+    height: inherit;
+    border-radius: 100%;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0);
+    transition: all ease-in-out .3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .personalFigcaption:hover {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, .5);
+  }
+  .personalFigcaption > img {
+    width: 50px;
+    height: 50px;
+  }

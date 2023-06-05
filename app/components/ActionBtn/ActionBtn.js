@@ -1,11 +1,15 @@
 import styles from './actionBtn.module.css';
 
-function ActionBtn({ title, icon, actionFunction }) {
+function ActionBtn({ title, icon, actionFunction, disabled }) {
   return (
-    <div className={styles.btnWrapper} onClick={actionFunction}>
+    <button
+      className={styles.btnWrapper}
+      onClick={actionFunction}
+      disabled={disabled}
+    >
       <p className={styles.btnText}>{title}</p>
       <div className={styles.iconWrapper}>{icon}</div>
-    </div>
+    </button>
   );
 }
 

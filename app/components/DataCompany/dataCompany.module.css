@@ -1,0 +1,31 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: center;
+    gap: 20px;
+}
+
+.inputWrapper{
+    display: flex;
+    flex: 1;
+    width: 100%;
+    justify-content: space-between;
+    gap: 20px;
+    align-self: flex-start;
+}
+
+.labelText{
+    font-size: 14px;
+    font-weight: 600;
+    color: #5B6976;
+    letter-spacing: 0.7px;
+    margin-bottom: 10px;
+}
+
+.inputWrapperLeft{
+    flex: 1;
+}
+.inputWrapperRight{
+    flex: 1;
+}

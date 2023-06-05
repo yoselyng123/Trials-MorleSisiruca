@@ -6,10 +6,13 @@ import {
   GithubAuthProvider,
 } from 'firebase/auth';
 import { doc, setDoc, updateDoc, getDoc } from 'firebase/firestore';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 const GoogleProvider = new GoogleAuthProvider();
 
 const GithubProvider = new GithubAuthProvider();
+
+const storage = getStorage();
 
 // Email and Password Auth
 export async function signUpWithEmailAndPassword(email, password) {
@@ -19,6 +22,43 @@ export async function signUpWithEmailAndPassword(email, password) {
     userRef = (await createUserWithEmailAndPassword(auth, email, password))
       .user;
     console.log('USER CREATED SUCCESSFULLY');
+  } catch (e) {
+    errorSignUp = e;
+    console.log(errorSignUp);
+  }
+
+  return { userRef, errorSignUp };
+}
+
+// Email and Password Auth
+export async function signUpWithEmailAndPasswordCompany(
+  email,
+  password,
+  name,
+  location,
+  webUrl
+) {
+  var userRef = null;
+  var errorSignUp = null;
+  try {
+    userRef = (await createUserWithEmailAndPassword(auth, email, password))
+      .user;
+    console.log('USER CREATED SUCCESSFULLY');
+
+    await setDoc(
+      doc(db, 'Users', userRef.uid),
+      {
+        email: userRef.email,
+        uid: userRef.uid,
+        name,
+        location,
+        webUrl,
+        role: 'Company',
+      },
+      {
+        merge: true,
+      }
+    );
   } catch (e) {
     errorSignUp = e;
     console.log(errorSignUp);
@@ -110,33 +150,65 @@ export async function updateUserProfessional(
   lastname,
   description,
   jobCategories,
-  listExpertiseAreas
+  listExpertiseAreas,
+  phoneNumber,
+  location,
+  setLoading,
+  file
 ) {
+  setLoading(true);
   var errorUpdate = null;
   var userRefUpdate = null;
   var errorGetUpdate = null;
   // update info in firestore db
+
   try {
-    await updateDoc(
-      doc(db, 'Users', user.uid),
-      {
-        email: user.email,
-        uid: user.uid,
-        name,
-        lastname,
-        description,
-        jobCategories,
-        listExpertiseAreas,
-        role: 'Professional',
-      },
-      {
-        merge: true,
-      }
-    );
+    if (file) {
+      const photoURL = await uploadImage(file, user, setLoading);
+      await updateDoc(
+        doc(db, 'Users', user.uid),
+        {
+          email: user.email,
+          uid: user.uid,
+          name,
+          lastname,
+          description,
+          jobCategories,
+          listExpertiseAreas,
+          phoneNumber,
+          location,
+          profilePic: photoURL,
+          role: 'Professional',
+        },
+        {
+          merge: true,
+        }
+      );
+    } else {
+      await updateDoc(
+        doc(db, 'Users', user.uid),
+        {
+          email: user.email,
+          uid: user.uid,
+          name,
+          lastname,
+          description,
+          jobCategories,
+          listExpertiseAreas,
+          phoneNumber,
+          location,
+          role: 'Professional',
+        },
+        {
+          merge: true,
+        }
+      );
+    }
 
     const { userRef, errorGet } = await getUser(user);
     userRefUpdate = userRef;
     errorGetUpdate = errorGet;
+    setLoading(false);
   } catch (e) {
     errorUpdate = e;
     console.log(e);
@@ -146,68 +218,72 @@ export async function updateUserProfessional(
 }
 
 // Update User Company
-export async function updateUserCompany(user, name, location, webUrl) {
-  let errorAddData = null;
-  let userRef = null;
-
-  // update user info to firestore db
-  try {
-    userRef = await updateDoc(
-      doc(db, 'Users', user.uid),
-      {
-        email: user.email,
-        uid: user.uid,
-        name,
-        location,
-        webUrl,
-        role: 'Company',
-      },
-      {
-        merge: true,
-      }
-    );
-    console.log('UPDATED: ');
-    console.log(userRef);
-  } catch (e) {
-    errorAddData = e.message;
-  }
-
-  return { userRef, errorAddData };
-}
-
-// Email and Password Auth
-export async function signUpWithEmailAndPasswordCompany(
-  email,
-  password,
+export async function updateUserCompany(
+  user,
   name,
   location,
-  webUrl
+  webUrl,
+  setLoading,
+  file
 ) {
-  var userRef = null;
-  var errorSignUp = null;
+  var errorUpdate = null;
+  var userRefUpdate = null;
+  var errorGetUpdate = null;
+  setLoading(true);
+  // update user info to firestore db
   try {
-    userRef = (await createUserWithEmailAndPassword(auth, email, password))
-      .user;
-    console.log('USER CREATED SUCCESSFULLY');
+    if (file) {
+      const photoURL = await uploadImage(file, user, setLoading);
+      await updateDoc(
+        doc(db, 'Users', user.uid),
+        {
+          email: user.email,
+          uid: user.uid,
+          name,
+          location,
+          webUrl,
+          profilePic: photoURL,
+          role: 'Company',
+        },
+        {
+          merge: true,
+        }
+      );
+    } else {
+      await updateDoc(
+        doc(db, 'Users', user.uid),
+        {
+          email: user.email,
+          uid: user.uid,
+          name,
+          location,
+          webUrl,
+          role: 'Company',
+        },
+        {
+          merge: true,
+        }
+      );
+    }
 
-    await setDoc(
-      doc(db, 'Users', userRef.uid),
-      {
-        email: userRef.email,
-        uid: userRef.uid,
-        name,
-        location,
-        webUrl,
-        role: 'Company',
-      },
-      {
-        merge: true,
-      }
-    );
+    const { userRef, errorGet } = await getUser(user);
+    userRefUpdate = userRef;
+    errorGetUpdate = errorGet;
+
+    setLoading(false);
   } catch (e) {
-    errorSignUp = e;
-    console.log(errorSignUp);
+    errorUpdate = e.message;
   }
 
-  return { userRef, errorSignUp };
+  return { userRefUpdate, errorUpdate, errorGetUpdate };
+}
+
+// Storage Images
+export async function uploadImage(file, user, setLoading) {
+  const fileRef = ref(storage, `profileImages/${user.uid}.png`);
+  const snapshot = await uploadBytes(fileRef, file);
+
+  const photoURL = await getDownloadURL(fileRef);
+
+  return photoURL;
 }

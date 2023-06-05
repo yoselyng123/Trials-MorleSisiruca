@@ -1,0 +1,15 @@
+.labelText{
+    font-size: 14px;
+    font-weight: 600;
+    color: #5B6976;
+    letter-spacing: 0.7px;
+    margin-bottom: 10px;
+}
+
+.jobCategoriesWrapper{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    flex-wrap: wrap;
+    z-index: 1;
+}

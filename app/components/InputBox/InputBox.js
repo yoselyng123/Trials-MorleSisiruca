@@ -1,6 +1,6 @@
 import styles from './inputBox.module.css';
 
-function InputBox({ value, setValue, placeholder, label }) {
+function InputBox({ value, setValue, placeholder, label, disabled }) {
   return (
     <div className={styles.container}>
       <label htmlFor='password' className={styles.labelText}>
@@ -13,6 +13,7 @@ function InputBox({ value, setValue, placeholder, label }) {
         className={styles.input}
         onChange={(e) => setValue(e.target.value)}
         value={value}
+        disabled={disabled}
       />
     </div>
   );

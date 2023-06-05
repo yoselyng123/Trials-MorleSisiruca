@@ -25,3 +25,10 @@
     letter-spacing: 0.7px;
 }
 
+.input:disabled {
+    background-color: #eee;
+	cursor: not-allowed;
+    border: 1px solid #eee;
+    font-style: italic;
+}
+

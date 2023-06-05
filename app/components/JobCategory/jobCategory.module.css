@@ -11,6 +11,20 @@
     margin-bottom: 10px;
     max-width: fit-content;
 }
+
+.colorContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 5px;
+    align-items: center;
+    background-color: #FFD632;
+    border-radius: 20px;
+    padding: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    max-width: fit-content;
+}
 .jobTitle{
     font-size: 11px;
     text-align: center;

@@ -8,6 +8,8 @@
     text-decoration: none;
     width: 100px;
     transition: all ease .3s;
+    outline: none;
+    border: none;
 }
 .btnWrapper:hover{
     background-color: #D4B200;

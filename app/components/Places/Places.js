@@ -5,6 +5,7 @@ import usePlacesAutoComplete, {
 import useOnclickOutside from 'react-cool-onclickoutside';
 import styles from './places.module.css';
 import { AiOutlineClose, AiOutlineSearch } from 'react-icons/ai';
+import { useEffect } from 'react';
 
 function Places({ setLocation, setMapCoordinates, location }) {
   const {
@@ -41,6 +42,17 @@ function Places({ setLocation, setMapCoordinates, location }) {
       clearSuggestions();
     };
 
+  useEffect(() => {
+    if (location !== '') {
+      getGeocode({ address: location }).then((results) => {
+        const { lat, lng } = getLatLng(results[0]);
+        console.log(results[0].formatted_address);
+        console.log('📍 Coordinates: ', { lat, lng });
+        setMapCoordinates({ lat, lng });
+      });
+    }
+  }, []);
+
   const renderSuggestions = () =>
     data.map((suggestion) => {
       const {
@@ -61,13 +73,13 @@ function Places({ setLocation, setMapCoordinates, location }) {
       );
     });
   return (
-    <div ref={ref}>
+    <div ref={ref} className={styles.container}>
       <div className={styles.searchBarWrapper}>
         <input
           value={location}
           onChange={handleInput}
           disabled={!ready}
-          placeholder="Enter your company's location"
+          placeholder='Enter your location'
           className={styles.searchBar}
         />
 

@@ -4,39 +4,26 @@ import { Avatar } from '@mui/material';
 import { BiChevronRight } from 'react-icons/bi';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import ActionBtn from '../components/ActionBtn/ActionBtn';
-import InputBox from '../components/InputBox/InputBox';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthContext } from '@/src/context/AuthContext';
 import { updateUserCompany } from '@/src/firebase/auth/signup';
+import DataCompany from '../components/DataCompany/DataCompany';
+import DataUser from '../components/DataUser/DataUser';
 
 function page() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [location, setLocation] = useState('');
-  const [webUrl, setWebUrl] = useState('');
-  const [lastname, setLastname] = useState('');
-  const [description, setDescription] = useState('');
-  const [listJobCategories, setListJobCategories] = useState([]);
-  const [listExpertiseAreas, setListExpertiseAreas] = useState([]);
+  const [saveBtnClick, setSaveBtnClick] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const router = useRouter();
 
-  const { user, setUser } = useAuthContext();
+  const { user } = useAuthContext();
 
   useEffect(() => {
     if (!user) {
       router.push('/');
     } else {
-      setName(user.name);
-      setEmail(user.email);
-      if (user.role === 'Professional') {
-        setLastname(user.lastname);
-        setDescription(user.description);
-      } else {
-        setLocation(user.location);
-        setWebUrl(user.webUrl);
-      }
+      console.log(user.role);
     }
   }, []);
 
@@ -45,11 +32,7 @@ function page() {
     return true;
   };
 
-  const handleUpdateUserInfo = () => {
-    if (inputValidations()) {
-      updateUserCompany(user, name, location, webUrl);
-    }
-  };
+  const handleProfilePicChange = () => {};
 
   if (user) {
     return (
@@ -64,63 +47,28 @@ function page() {
             <ActionBtn
               title='Save'
               icon={<AiOutlineArrowRight size={18} fill='#000' />}
-              actionFunction={() => handleUpdateUserInfo()}
+              actionFunction={() => setSaveBtnClick(true)}
+              disabled={loading}
             />
           </div>
         </div>
         <div className={styles.infoWrapper}>
-          <Avatar sx={{ height: 120, width: 120 }} />
           <div className={styles.inputWrapper}>
-            <InputBox
-              value={email}
-              setValue={setEmail}
-              placeholder='Enter the email of the company'
-              label='Email'
-            />
-
             {user.role === 'Professional' ? (
-              <>
-                <InputBox
-                  value={name}
-                  setValue={setName}
-                  placeholder='Enter your name '
-                  label='Name'
-                />
-                <InputBox
-                  value={lastname}
-                  setValue={setLastname}
-                  placeholder='Enter your last name'
-                  label='Last Name'
-                />
-                <InputBox
-                  value={description}
-                  setValue={setDescription}
-                  placeholder='Enter your description'
-                  label='Description'
-                />
-              </>
-            ) : (
-              <>
-                <InputBox
-                  value={name}
-                  setValue={setName}
-                  placeholder='Enter the name of the company'
-                  label='Company Name'
-                />
-                <InputBox
-                  value={webUrl}
-                  setValue={setWebUrl}
-                  placeholder='Enter the web url of the company'
-                  label='Web Url'
-                />
-                <InputBox
-                  value={location}
-                  setValue={setLocation}
-                  placeholder='Enter the location of the company'
-                  label='Location'
-                />
-              </>
-            )}
+              <DataUser
+                saveBtnClick={saveBtnClick}
+                setSaveBtnClick={setSaveBtnClick}
+                loading={loading}
+                setLoading={setLoading}
+              />
+            ) : user.role === 'Company' ? (
+              <DataCompany
+                saveBtnClick={saveBtnClick}
+                setSaveBtnClick={setSaveBtnClick}
+                loading={loading}
+                setLoading={setLoading}
+              />
+            ) : null}
           </div>
         </div>
       </div>

@@ -1,36 +1,49 @@
+.container{
+    display: flex;
+    flex: 1;
+    margin-bottom: 10px;
+    position: relative;
+    transition: all ease .5s;
+}
+
 .searchBarWrapper {
     display: flex;
-    flex-direction: row;
     flex: 1;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     background-color: rgba(255,255,255,0.07);
     border-radius: 4px;
     padding-right: 10px;
-    margin-bottom: 10px;
+    border: 1px solid #7C8AA3;
+}
+
+.searchBarWrapper > svg {
+    cursor: pointer;
 }
 .searchBar {
     display: flex;
-    flex: 1;
+    width: 100%;
     background-color: transparent;
     font-size: 14px;
     font-weight: 400;
     padding: 20px;
-    position: relative;
+    outline: none;
+    border: none;
 }
 
 .searchResultsWrapper{
     position: absolute;
     display: flex;
-    flex: 1;
     flex-direction: column;
     overflow: hidden;
     overflow-y: auto;
     background-color: #414650;
-    width: 90%;
     max-height: 120px;
     border-radius: 4px;
-    z-index: 1000;
+    z-index: 100000;
+    top: 59px;
+    width: 100%;
 }
 
 .searchResult {
