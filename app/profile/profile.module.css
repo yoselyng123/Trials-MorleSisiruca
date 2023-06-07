@@ -60,3 +60,11 @@
     margin-top: 20px;
     align-self: flex-start;
 }
+
+@media screen and (max-width: 947px){
+    .topWrapper{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+  }

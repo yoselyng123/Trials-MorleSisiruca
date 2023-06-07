@@ -43,12 +43,19 @@
     color: #7C8AA3;
     font-weight: 500;
     transition: all ease .3s;
-    
 }
 .text2{
     font-size: 16;
     color: #000;
     font-weight: 500;
     transition: all ease .3s;
-   
 }
+
+@media screen and (max-width: 947px){
+    .text{
+      display: none;
+    }
+    .text2{
+      display: none;
+    }
+  }

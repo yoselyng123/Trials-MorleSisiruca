@@ -3,6 +3,7 @@ import { useAuthContext } from '@/src/context/AuthContext';
 import styles from './page.module.css';
 import { auth } from '@/src/firebase/firebase.config';
 import { useEffect } from 'react';
+import JobOffer from './components/JobOffer/JobOffer';
 
 export default function Home() {
   const { user } = useAuthContext();
@@ -11,5 +12,13 @@ export default function Home() {
     console.log(user);
   }, [user]);
 
-  return <main className={styles.main}></main>;
+  return (
+    <main className={styles.main}>
+      <div className={styles.contentWrapper}>
+        <JobOffer />
+        <JobOffer />
+        <JobOffer />
+      </div>
+    </main>
+  );
 }

@@ -43,7 +43,7 @@ function page() {
             <BiChevronRight size={18} fill='#000' />
             <p className={styles.pageSubtitleTop}>Edit Profile</p>
           </div>
-          <div className={styles.topLeftWrapper}>
+          <div className={styles.topRightWrapper}>
             <ActionBtn
               title='Save'
               icon={<AiOutlineArrowRight size={18} fill='#000' />}

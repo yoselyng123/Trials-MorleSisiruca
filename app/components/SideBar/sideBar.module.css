@@ -1,20 +1,12 @@
 .container{
     display: flex;
-    position: fixed;
-    top: 0;
     flex: 1;
-    background-color: #1C212D;
     min-height: 100vh;
     height: 100%;
+    background-color: #1C212D;
     flex-direction: column;
     padding: 20px;
     justify-content: space-between;
-    overflow-y: auto;
-    z-index: 1; /* Stay on top */
-    top: 0; /* Stay at the top */
-    left: 0;
-    min-width: 17%;
-    max-width: 17%;
 }
 
 .titleWrapper{
@@ -35,4 +27,49 @@
     font-weight: 600;
     letter-spacing: 0.5px;
     margin: 10px 0px;
+}
+
+.personalAvatar {
+    cursor: pointer;
+    width: 23px;
+    height: 23px;
+    border-radius: 100%;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
+    transition: all ease-in-out .3s;
+  }
+
+.signOutBtn{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 5px;
+  border-radius: 4px;
+  transition: all ease .3s;
+  padding: 15px;
+  text-decoration: none;
+  outline: none;
+  border: none;
+  background-color: #FFD731;
+}
+
+.signOutBtn:hover{
+  background-color: #D4B200;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 947px){
+
+  .container{
+    display: flex;
+    padding: 5px;
+  }
+  .title{
+    display: none;
+  }
+  .subtitle{
+    display: none;
+  }
+  .signOutText{
+    display: none;
+  }
 }

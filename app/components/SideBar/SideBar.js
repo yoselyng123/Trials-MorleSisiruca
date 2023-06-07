@@ -1,18 +1,25 @@
 'use client';
 import styles from './sideBar.module.css';
 import { BiNetworkChart } from 'react-icons/bi';
-import { MdSpaceDashboard } from 'react-icons/md';
+import { AiFillHome } from 'react-icons/ai';
 import { HiInboxArrowDown } from 'react-icons/hi2';
-import { RiSuitcaseFill, RiEditBoxFill } from 'react-icons/ri';
+import {
+  RiSuitcaseFill,
+  RiEditBoxFill,
+  RiLogoutBoxRLine,
+} from 'react-icons/ri';
 import { BsPeopleFill, BsBellFill } from 'react-icons/bs';
+
 import { IoEnter } from 'react-icons/io5';
-import { CgProfile } from 'react-icons/cg';
 import { useAuthContext } from '@/src/context/AuthContext';
 import SideOption from '../SideOption/SideOption';
 import { auth } from '@/src/firebase/firebase.config';
 
 function SideBar() {
   const { user } = useAuthContext();
+
+  const defaultAvatar =
+    'https://sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png';
 
   return (
     <div className={styles.container}>
@@ -22,18 +29,24 @@ function SideBar() {
           <h2 className={styles.title}>Trials</h2>
         </div>
 
-        <SideOption
-          title='Dashboard'
-          icon={<MdSpaceDashboard size={20} fill='#7C8AA3' />}
-          link='/dashboard'
-        />
-        {user && (
+        {user?.profilePic && (
           <SideOption
             title='Profile'
-            icon={<CgProfile size={20} color='#7C8AA3' />}
+            icon={
+              <img
+                src={user.profilePic !== '' ? user.profilePic : defaultAvatar}
+                className={styles.personalAvatar}
+                alt='avatar'
+              />
+            }
             link='/profile'
           />
         )}
+        <SideOption
+          title='Home'
+          icon={<AiFillHome size={20} fill='#7C8AA3' />}
+          link='/'
+        />
 
         <SideOption
           title='Notifications'
@@ -59,14 +72,11 @@ function SideBar() {
       </div>
       <div>
         {user ? (
-          <button onClick={() => auth.signOut()}>Sign Out</button>
+          <button className={styles.signOutBtn}>
+            <RiLogoutBoxRLine size={20} fill='#000' />
+            <p className={styles.signOutText}>Sign Out</p>
+          </button>
         ) : (
-          //   <SideOption
-          //     title='Sign out'
-          //     icon={<IoEnter size={20} fill='#000' />}
-          //     primary={true}
-          //     link='/'
-          //   />
           <>
             <SideOption
               title='Sign In'

@@ -29,3 +29,10 @@
 .inputWrapperRight{
     flex: 1;
 }
+
+@media screen and (max-width: 947px){
+    .inputWrapper{
+        flex-direction: column;
+    }
+
+  }

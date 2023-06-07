@@ -96,99 +96,107 @@ function DataUser({ saveBtnClick, setSaveBtnClick, loading, setLoading }) {
   };
 
   return (
-    <div className={styles.inputWrapper}>
+    <div className={styles.container}>
       <ProfileAvatar
         profilePic={profilePic}
         setProfilePic={setProfilePic}
         picture={picture}
         setPicture={setPicture}
       />
-      <InputBox
-        value={email}
-        setValue={setEmail}
-        placeholder='Enter the email of the company'
-        label='Email'
-        disabled={true}
-      />
-      <InputBox
-        value={name}
-        setValue={setName}
-        placeholder='Enter your name '
-        label='Name'
-      />
-      <InputBox
-        value={lastname}
-        setValue={setLastname}
-        placeholder='Enter your last name'
-        label='Last Name'
-      />
-      <InputBox
-        value={description}
-        setValue={setDescription}
-        placeholder='Enter your description'
-        label='Description'
-      />
-      <InputBox
-        value={phoneNumber}
-        setValue={setPhoneNumber}
-        placeholder='Enter your phone number'
-        label='Phone Number'
-      />
-      <p htmlFor='password' className={styles.labelText}>
-        Job Categories
-      </p>
-      <SearchBar
-        placeholder='Enter job categories of your interest'
-        data={jobCategories}
-        setSelectedData={setListJobCategories}
-        selectedData={listJobCategories}
-      />
 
-      <div className={styles.jobCategoriesWrapper}>
-        {listJobCategories.map((job, index) => (
-          <JobCategory
-            key={index}
-            title={job}
-            index={index}
-            handleDelete={handleDeleteJob}
-            backgroundColor={true}
+      <div className={styles.inputWrapper}>
+        <div className={styles.inputWrapperLeft}>
+          <InputBox
+            value={email}
+            setValue={setEmail}
+            placeholder='Enter the email of the company'
+            label='Email'
+            disabled={true}
           />
-        ))}
+          <InputBox
+            value={name}
+            setValue={setName}
+            placeholder='Enter your name '
+            label='Name'
+          />
+          <InputBox
+            value={lastname}
+            setValue={setLastname}
+            placeholder='Enter your last name'
+            label='Last Name'
+          />
+          <InputBox
+            value={description}
+            setValue={setDescription}
+            placeholder='Enter your description'
+            label='Description'
+          />
+          <InputBox
+            value={phoneNumber}
+            setValue={setPhoneNumber}
+            placeholder='example: +584127664'
+            label='Phone Number'
+          />
+          <p htmlFor='password' className={styles.labelText}>
+            Job Categories
+          </p>
+          <SearchBar
+            placeholder='Enter job categories of your interest'
+            data={jobCategories}
+            setSelectedData={setListJobCategories}
+            selectedData={listJobCategories}
+          />
+
+          <div className={styles.jobCategoriesWrapper}>
+            {listJobCategories.map((job, index) => (
+              <JobCategory
+                key={index}
+                title={job}
+                index={index}
+                handleDelete={handleDeleteJob}
+                backgroundColor={true}
+              />
+            ))}
+          </div>
+        </div>
+        <div className={styles.inputWrapperRight}>
+          <p htmlFor='password' className={styles.labelText}>
+            Expertise Areas
+          </p>
+          <SearchBar
+            placeholder='Enter expertise areas'
+            data={expertiseAreas}
+            setSelectedData={setListExpertiseAreas}
+            selectedData={listExpertiseAreas}
+          />
+          <div className={styles.jobCategoriesWrapper}>
+            {listExpertiseAreas.map((job, index) => (
+              <JobCategory
+                key={index}
+                title={job}
+                index={index}
+                handleDelete={handleDeleteExpertiseArea}
+                backgroundColor={true}
+              />
+            ))}
+          </div>
+          {isLoaded && (
+            <>
+              <p className={styles.labelText}>Location</p>
+              <Places
+                setLocation={setLocation}
+                setMapCoordinates={setMapCoordinates}
+                location={location}
+              />
+              <Map
+                mapCoordinates={mapCoordinates}
+                setMapCoordinates={setMapCoordinates}
+                setLocation={setLocation}
+              />
+            </>
+          )}
+        </div>
       </div>
-      <label htmlFor='password' className={styles.labelText}>
-        Expertise Areas
-      </label>
-      <SearchBar
-        placeholder='Enter expertise areas'
-        data={expertiseAreas}
-        setSelectedData={setListExpertiseAreas}
-        selectedData={listExpertiseAreas}
-      />
-      <div className={styles.jobCategoriesWrapper}>
-        {listExpertiseAreas.map((job, index) => (
-          <JobCategory
-            key={index}
-            title={job}
-            index={index}
-            handleDelete={handleDeleteExpertiseArea}
-            backgroundColor={true}
-          />
-        ))}
-      </div>
-      {isLoaded && (
-        <>
-          <Places
-            setLocation={setLocation}
-            setMapCoordinates={setMapCoordinates}
-            location={location}
-          />
-          <Map
-            mapCoordinates={mapCoordinates}
-            setMapCoordinates={setMapCoordinates}
-            setLocation={setLocation}
-          />
-        </>
-      )}
     </div>
   );
 }
