@@ -160,9 +160,7 @@ function DataUser({ saveBtnClick, setSaveBtnClick, loading, setLoading }) {
           </div>
         </div>
         <div className={styles.inputWrapperRight}>
-          <p htmlFor='password' className={styles.labelText}>
-            Expertise Areas
-          </p>
+          <p className={styles.labelText}>Expertise Areas</p>
           <SearchBar
             placeholder='Enter expertise areas'
             data={expertiseAreas}

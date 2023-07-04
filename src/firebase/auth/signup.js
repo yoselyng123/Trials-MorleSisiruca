@@ -223,6 +223,7 @@ export async function updateUserCompany(
   name,
   location,
   webUrl,
+  listExpertiseAreas,
   setLoading,
   file
 ) {
@@ -242,6 +243,7 @@ export async function updateUserCompany(
           name,
           location,
           webUrl,
+          listExpertiseAreas,
           profilePic: photoURL,
           role: 'Company',
         },
@@ -258,6 +260,7 @@ export async function updateUserCompany(
           name,
           location,
           webUrl,
+          listExpertiseAreas,
           role: 'Company',
         },
         {
@@ -286,4 +289,26 @@ export async function uploadImage(file, user, setLoading) {
   const photoURL = await getDownloadURL(fileRef);
 
   return photoURL;
+}
+
+// Read Company
+export async function getCompany(id) {
+  let userRef = null;
+  let errorGet = null;
+
+  try {
+    const docSnap = await getDoc(doc(db, 'Users', id));
+    if (docSnap.exists()) {
+      userRef = docSnap.data();
+      console.log('Document data:', docSnap.data());
+    } else {
+      // docSnap.data() will be undefined in this case
+      console.log('No user in db!');
+    }
+  } catch (e) {
+    errorGet = e;
+    console.log(errorGet);
+  }
+
+  return { userRef, errorGet };
 }

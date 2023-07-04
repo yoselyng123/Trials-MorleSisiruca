@@ -6,10 +6,11 @@
     align-items: center;
     border-radius: 15px;
     text-decoration: none;
-    width: 100px;
+    width: fit-content;
     transition: all ease .3s;
     outline: none;
     border: none;
+    gap: 10px;
 }
 .btnWrapper:hover{
     background-color: #D4B200;
@@ -38,4 +39,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+@media screen and (max-width: 947px){
+    .btnText{
+        font-size: 11px;
+    }
+
+    .btnWrapper{
+        padding: 10px;
+    }
+    .btnWrapper2{
+        padding: 10px;
+    }
 }

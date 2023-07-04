@@ -3,6 +3,7 @@
     flex: 1;
     height: 100vh;
     background-color: #F3F6F9;
+    overflow-y: hidden;
 }
 
 .contentWrapper{

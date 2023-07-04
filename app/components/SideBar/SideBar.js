@@ -8,9 +8,9 @@ import {
   RiEditBoxFill,
   RiLogoutBoxRLine,
 } from 'react-icons/ri';
-import { BsPeopleFill, BsBellFill } from 'react-icons/bs';
-
+import { BsPeopleFill, BsBellFill, BsBuildingFillUp } from 'react-icons/bs';
 import { IoEnter } from 'react-icons/io5';
+import { MdAddBox } from 'react-icons/md';
 import { useAuthContext } from '@/src/context/AuthContext';
 import SideOption from '../SideOption/SideOption';
 import { auth } from '@/src/firebase/firebase.config';
@@ -58,21 +58,31 @@ function SideBar() {
           icon={<HiInboxArrowDown size={20} fill='#7C8AA3' />}
           link='/inbox'
         />
-        <p className={styles.subtitle}>RECRUITMENT</p>
-        <SideOption
-          title='Jobs'
-          icon={<RiSuitcaseFill size={20} fill='#7C8AA3' />}
-          link='/job-offers'
-        />
-        <SideOption
-          title='Candidates'
-          icon={<BsPeopleFill size={20} fill='#7C8AA3' />}
-          link='/candidates'
-        />
+
+        {user?.role === 'Company' && (
+          <>
+            <p className={styles.subtitle}>RECRUITMENT</p>
+            <SideOption
+              title='Jobs'
+              icon={<RiSuitcaseFill size={20} fill='#7C8AA3' />}
+              link='/job-offers'
+            />
+            <SideOption
+              title='Candidates'
+              icon={<BsPeopleFill size={20} fill='#7C8AA3' />}
+              link='/candidates'
+            />
+            <SideOption
+              title='Create Job'
+              icon={<MdAddBox size={20} fill='#7C8AA3' />}
+              link='/create-job'
+            />
+          </>
+        )}
       </div>
       <div>
         {user ? (
-          <button className={styles.signOutBtn}>
+          <button className={styles.signOutBtn} onClick={() => auth.signOut()}>
             <RiLogoutBoxRLine size={20} fill='#000' />
             <p className={styles.signOutText}>Sign Out</p>
           </button>
@@ -91,7 +101,7 @@ function SideBar() {
             />
             <SideOption
               title='Sign Up Company'
-              icon={<RiEditBoxFill size={20} fill='#7C8AA3' />}
+              icon={<BsBuildingFillUp size={20} fill='#7C8AA3' />}
               link='sign-up-company'
             />
           </>

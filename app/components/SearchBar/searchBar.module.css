@@ -4,6 +4,7 @@
     margin-bottom: 10px;
     position: relative;
     transition: all ease .5s;
+    max-height: 55px;
 }
 
 .searchBarWrapper {
@@ -16,6 +17,7 @@
     border-radius: 4px;
     padding-right: 10px;
     border: 1px solid #7C8AA3;
+    max-height: 55px;
 }
 
 .searchBarWrapper > svg {
@@ -30,6 +32,7 @@
     padding: 20px;
     outline: none;
     border: none;
+    max-height: 55px;
 }
 
 .searchResultsWrapper{

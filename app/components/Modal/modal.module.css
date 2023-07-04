@@ -1,0 +1,143 @@
+.darkBG {
+    background-color: rgba(0, 0, 0, 0.2);
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+  }
+  
+  .centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .modal {
+    width: 50vw;
+    height: 62vh;
+    background: white;
+    z-index: 10;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
+    overflow-y: scroll;
+  }
+
+  .modalContent{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .closeBtn {
+    cursor: pointer;
+    font-weight: 500;
+    padding: 4px 8px;
+    border-radius: 8px;
+    border: none;
+    font-size: 18px;
+    color: #2c3e50;
+    background: white;
+    transition: all 0.25s ease;
+    box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.06);
+    position: absolute;
+    right: 0;
+    top: 0;
+    align-self: flex-end;
+    margin-top: -7px;
+    margin-right: -7px;
+  }
+  
+  .closeBtn:hover {
+    box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
+    transform: scale(1.2)
+  }
+
+.jobTitle{
+    color: #000;
+    font-size: 24px;
+}
+.jobInfo{
+    font-size: 16px;
+    color: #000;
+}
+
+.jobInfoWithIconWrapper{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.subtitle{
+    font-size: 18px;;
+    font-weight: 600;
+}
+.companyWrapper{
+    display: flex;
+    gap: 15px;
+}
+.companyImg{
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+}
+.companyTitle{
+    font-size: 17px;;
+    font-weight: 500;
+}
+.applyBtn{
+    display: flex;
+    gap: 8px;
+    width: fit-content;
+    padding: 8px 15px;
+    align-items: center;
+    border-radius: 15px;
+    outline: none;
+    border: none;
+    background-color: #FFD731;
+    cursor: pointer;
+    transition: all ease .3s;
+    margin-bottom: 20px;
+    margin-top: 8px;
+}
+
+.applyBtn:hover{
+    background-color: #D4B200;
+}
+.applyBtnText{
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.personalAvatar{
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+}
+
+.companyInfoWrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.companyInfoText{
+    color: rgba(0, 0, 0, 0.7);
+    font-weight: 400;
+    font-size: 12px;
+}
+
+.jobInfoDescription{
+    font-size: 16px;
+    color: #000;
+    margin-bottom: 10px;
+}
+
+@media screen and (max-width: 659px){
+    .modal{
+        width: 90vw;
+    }
+}

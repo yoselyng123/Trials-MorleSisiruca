@@ -4,7 +4,13 @@ import styles from './searchBar.module.css';
 import { AiOutlineClose, AiOutlineSearch } from 'react-icons/ai';
 import useOnclickOutside from 'react-cool-onclickoutside';
 
-function SearchBar({ placeholder, data, setSelectedData, selectedData }) {
+function SearchBar({
+  placeholder,
+  data,
+  setSelectedData,
+  selectedData,
+  oneOption,
+}) {
   const [searchValue, setSearchValue] = useState('');
   const [filteredData, setFilteredData] = useState([]);
 
@@ -23,13 +29,19 @@ function SearchBar({ placeholder, data, setSelectedData, selectedData }) {
   };
 
   const handleSelectData = (element) => {
-    const copySelectedData = [...selectedData];
-    if (copySelectedData.find((data) => data === element) !== element) {
-      copySelectedData.push(element);
-      setSelectedData(copySelectedData);
-      setSearchValue('');
-      setFilteredData([]);
+    if (!oneOption) {
+      const copySelectedData = [...selectedData];
+      if (copySelectedData.find((data) => data === element) !== element) {
+        copySelectedData.push(element);
+        setSelectedData(copySelectedData);
+        setSearchValue('');
+        setFilteredData([]);
+      } else {
+        setFilteredData([]);
+      }
     } else {
+      setSelectedData(element);
+      setSearchValue(element);
       setFilteredData([]);
     }
   };

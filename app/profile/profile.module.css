@@ -5,7 +5,8 @@
     background-color: #F6F7FB;
     flex-direction: column;
     padding: 30px;
-    overflow-y: auto
+    overflow-y: auto;
+    height: 100vh;
 }
 
 .topWrapper{
@@ -47,6 +48,7 @@
 
 .infoWrapper{
     display: flex;
+    flex: 1;
     flex-direction: column;
     width: 100%;
     background-color: #FFF;
@@ -67,4 +69,4 @@
         align-items: flex-start;
     }
 
-  }
+}

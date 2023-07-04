@@ -7,6 +7,9 @@ import InputBox from '../InputBox/InputBox';
 import { useAuthContext } from '@/src/context/AuthContext';
 import { updateUserCompany, uploadImage } from '@/src/firebase/auth/signup';
 import ProfileAvatar from '../ProfileAvatar/ProfileAvatar';
+import JobCategory from '../JobCategory/JobCategory';
+import SearchBar from '../SearchBar/SearchBar';
+import { expertiseAreas } from '@/src/data/data';
 
 function DataCompany({ saveBtnClick, setSaveBtnClick, loading, setLoading }) {
   const [libraries] = useState(['places']);
@@ -20,6 +23,7 @@ function DataCompany({ saveBtnClick, setSaveBtnClick, loading, setLoading }) {
   const [location, setLocation] = useState('');
   const [webUrl, setWebUrl] = useState('');
   const [profilePic, setProfilePic] = useState('');
+  const [listExpertiseAreas, setListExpertiseAreas] = useState([]);
 
   const [mapCoordinates, setMapCoordinates] = useState(null);
 
@@ -32,6 +36,9 @@ function DataCompany({ saveBtnClick, setSaveBtnClick, loading, setLoading }) {
       setEmail(user.email);
       setLocation(user.location);
       setWebUrl(user.webUrl);
+      if (user?.listExpertiseAreas) {
+        setListExpertiseAreas(user.listExpertiseAreas);
+      }
       if (user?.profilePic) {
         setProfilePic(user.profilePic);
       }
@@ -45,6 +52,12 @@ function DataCompany({ saveBtnClick, setSaveBtnClick, loading, setLoading }) {
     }
   }, [saveBtnClick]);
 
+  const handleDeleteExpertiseArea = (index) => {
+    var copyOfListExpertiseArea = [...listExpertiseAreas];
+    copyOfListExpertiseArea.splice(index, 1);
+    setListExpertiseAreas(copyOfListExpertiseArea);
+  };
+
   const handleUpdateUserInfo = async () => {
     setSaveBtnClick(false);
     const { userRefUpdate, errorUpdate, errorGetUpdate } =
@@ -53,6 +66,7 @@ function DataCompany({ saveBtnClick, setSaveBtnClick, loading, setLoading }) {
         name,
         location,
         webUrl,
+        listExpertiseAreas,
         setLoading,
         picture
       );
@@ -97,6 +111,24 @@ function DataCompany({ saveBtnClick, setSaveBtnClick, loading, setLoading }) {
             placeholder='Enter the web url of the company'
             label='Web Url'
           />
+          <p className={styles.labelText}>Related Expertise Areas</p>
+          <SearchBar
+            placeholder='Enter expertise areas'
+            data={expertiseAreas}
+            setSelectedData={setListExpertiseAreas}
+            selectedData={listExpertiseAreas}
+          />
+          <div className={styles.jobCategoriesWrapper}>
+            {listExpertiseAreas.map((job, index) => (
+              <JobCategory
+                key={index}
+                title={job}
+                index={index}
+                handleDelete={handleDeleteExpertiseArea}
+                backgroundColor={true}
+              />
+            ))}
+          </div>
         </div>
         <div className={styles.inputWrapperRight}>
           {isLoaded && (
