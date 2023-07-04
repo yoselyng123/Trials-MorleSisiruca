@@ -224,6 +224,7 @@ export async function updateUserCompany(
   location,
   webUrl,
   listExpertiseAreas,
+  companySize,
   setLoading,
   file
 ) {
@@ -244,6 +245,7 @@ export async function updateUserCompany(
           location,
           webUrl,
           listExpertiseAreas,
+          companySize,
           profilePic: photoURL,
           role: 'Company',
         },
@@ -261,6 +263,7 @@ export async function updateUserCompany(
           location,
           webUrl,
           listExpertiseAreas,
+          companySize,
           role: 'Company',
         },
         {

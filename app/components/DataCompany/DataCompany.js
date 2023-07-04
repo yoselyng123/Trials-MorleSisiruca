@@ -22,6 +22,7 @@ function DataCompany({ saveBtnClick, setSaveBtnClick, loading, setLoading }) {
   const [email, setEmail] = useState('');
   const [location, setLocation] = useState('');
   const [webUrl, setWebUrl] = useState('');
+  const [companySize, setCompanySize] = useState('');
   const [profilePic, setProfilePic] = useState('');
   const [listExpertiseAreas, setListExpertiseAreas] = useState([]);
 
@@ -41,6 +42,9 @@ function DataCompany({ saveBtnClick, setSaveBtnClick, loading, setLoading }) {
       }
       if (user?.profilePic) {
         setProfilePic(user.profilePic);
+      }
+      if (user?.companySize) {
+        setCompanySize(user.companySize);
       }
     }
   }, [user]);
@@ -67,6 +71,7 @@ function DataCompany({ saveBtnClick, setSaveBtnClick, loading, setLoading }) {
         location,
         webUrl,
         listExpertiseAreas,
+        companySize,
         setLoading,
         picture
       );
@@ -110,6 +115,12 @@ function DataCompany({ saveBtnClick, setSaveBtnClick, loading, setLoading }) {
             setValue={setWebUrl}
             placeholder='Enter the web url of the company'
             label='Web Url'
+          />
+          <InputBox
+            value={companySize}
+            setValue={setCompanySize}
+            placeholder='400-500'
+            label='Company Size Range'
           />
           <p className={styles.labelText}>Related Expertise Areas</p>
           <SearchBar

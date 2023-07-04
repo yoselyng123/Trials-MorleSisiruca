@@ -40,7 +40,9 @@ function Modal({ setIsOpen, clickedCompany, clickedJob }) {
             </div>
             <div className={styles.jobInfoWithIconWrapper}>
               <BsFillBuildingFill color='#56687a' size={20} />
-              <p className={styles.jobInfo}>51-200 employees</p>
+              <p className={styles.jobInfo}>
+                {clickedCompany.companySize} employees
+              </p>
             </div>
             <div className={styles.jobInfoWithIconWrapper}>
               <HiLightBulb color='#56687a' size={20} />

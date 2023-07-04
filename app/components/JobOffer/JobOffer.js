@@ -55,10 +55,12 @@ function JobOffer({ job, setModalOpen, setClickedCompany, setClickedJob }) {
             <p className={styles.companyName}>{companyInfo.name}</p>
           </div>
           <div className={styles.companyExtraInfoWrapper}>
-            {/* <div className={styles.companySizeWrapper}>
+            <div className={styles.companySizeWrapper}>
               <MdPeopleAlt size={16} fill='#9596AA' />
-              <p className={styles.complementaryText}>11-50</p>
-            </div> */}
+              <p className={styles.complementaryText}>
+                {companyInfo.companySize}
+              </p>
+            </div>
             <p className={styles.complementaryText}> $ {job.paymentRange}</p>
           </div>
         </div>
