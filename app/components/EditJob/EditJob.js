@@ -1,42 +1,42 @@
 'use client';
 import React, { useState } from 'react';
-import styles from './createJob.module.css';
-import ActionBtn from '../components/ActionBtn/ActionBtn';
+import styles from './editJob.module.css';
+import ActionBtn from '../ActionBtn/ActionBtn';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import { BiChevronRight } from 'react-icons/bi';
 import { useAuthContext } from '@/src/context/AuthContext';
-import JobOfferForm from '../components/JobOfferForm/JobOfferForm';
+import JobOfferForm from '../JobOfferForm/JobOfferForm';
 
-function page() {
+function EditJob({ clickedJob, updateJobBtnClick, setUpdateJobBtnClick }) {
   const { user } = useAuthContext();
 
-  const [createJobBtnClick, setCreateJobBtnClick] = useState(false);
   const [loading, setLoading] = useState(false);
 
   return (
     <div className={styles.container}>
       <div className={styles.topContainer}>
         <div className={styles.topLeftContainer}>
-          <p className={styles.pageTitleTop}>Create Job</p>
+          <p className={styles.pageTitleTop}>Edit Job</p>
           <BiChevronRight size={18} fill='#000' />
           <p className={styles.pageSubtitleTop}>Job Details</p>
         </div>
         <div className={styles.topRightContainer}>
           <ActionBtn
-            title='Create job'
+            title='Save Changes'
             icon={<AiOutlineArrowRight size={18} fill='#000' />}
-            actionFunction={() => setCreateJobBtnClick(true)}
+            actionFunction={() => setUpdateJobBtnClick(true)}
             disabled={loading}
           />
         </div>
       </div>
       <JobOfferForm
-        setCreateJobBtnClick={setCreateJobBtnClick}
-        createJobBtnClick={createJobBtnClick}
-        typeForm='create'
+        updateJobBtnClick={updateJobBtnClick}
+        setUpdateJobBtnClick={setUpdateJobBtnClick}
+        typeForm='update'
+        job={clickedJob}
       />
     </div>
   );
 }
 
-export default page;
+export default EditJob;

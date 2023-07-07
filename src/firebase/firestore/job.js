@@ -8,6 +8,8 @@ import {
   doc,
   query,
   where,
+  getDoc,
+  updateDoc,
 } from 'firebase/firestore';
 
 const db = getFirestore(firebase_app);
@@ -84,7 +86,7 @@ export async function getJob(job) {
   try {
     const docSnap = await getDoc(doc(db, 'jobOffers', job.id));
     if (docSnap.exists()) {
-      docRef = docSnap.data();
+      docRef = { id: docSnap.id, ...docSnap.data() };
       console.log('Document data:', docSnap.data());
     } else {
       // docSnap.data() will be undefined in this case
@@ -99,14 +101,14 @@ export async function getJob(job) {
 }
 
 // Read all Jobs
-export async function getJobsList(job) {
+export async function getJobsList() {
   let jobsListRef = [];
   let errorGet = null;
 
   try {
     const querySnapshot = await getDocs(collection(db, 'jobOffers'));
     querySnapshot.forEach((doc) => {
-      jobsListRef.push(doc.data());
+      jobsListRef.push({ id: doc.id, ...doc.data() });
     });
   } catch (e) {
     errorGet = e;
@@ -130,7 +132,7 @@ export async function getJobsListByState(state) {
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       // doc.data() is never undefined for query doc snapshots
-      jobsListRef.push(doc.data());
+      jobsListRef.push({ id: doc.id, ...doc.data() });
     });
   } catch (e) {
     errorGet = e;
@@ -140,28 +142,79 @@ export async function getJobsListByState(state) {
   return { jobsListRef, errorGet };
 }
 
+// Read Jobs by Company
+export async function getJobsListByCompany(user) {
+  let jobsListRef = [];
+  let errorGet = null;
+
+  try {
+    const q = query(
+      collection(db, 'jobOffers'),
+      where('companyID', '==', user.uid)
+    );
+
+    console.log(user.uid);
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      jobsListRef.push({ id: doc.id, ...doc.data() });
+    });
+  } catch (e) {
+    errorGet = e;
+    console.log(errorGet);
+  }
+  console.log(jobsListRef);
+
+  return { jobsListRef, errorGet };
+}
+
 // Update Job
-export async function updateUserCompany(job, jobState) {
+export async function updateJob(
+  job,
+  title,
+  description,
+  requiredExperience,
+  state,
+  expertiseAreas,
+  jobCategories,
+  location,
+  jobType,
+  applicantLimit,
+  paymentRange,
+  experienceLevel
+) {
   var errorUpdate = null;
   var jobRefUpdate = null;
   var errorGetUpdate = null;
   // update user info to firestore db
   try {
     await updateDoc(
-      doc(db, 'jobOffers', job.uid),
+      doc(db, 'jobOffers', job.id),
       {
-        jobState,
+        title,
+        description,
+        requiredExperience,
+        state,
+        expertiseAreas,
+        jobCategories,
+        location,
+        jobType,
+        applicantLimit,
+        paymentRange,
+        experienceLevel,
       },
       {
         merge: true,
       }
     );
 
-    const { jobRef, errorGet } = await getJob(job);
-    jobRefUpdate = jobRef;
+    const { docRef, errorGet } = await getJob(job);
+    jobRefUpdate = docRef;
     errorGetUpdate = errorGet;
   } catch (e) {
     errorUpdate = e.message;
+    console.log(errorUpdate);
   }
 
   return { jobRefUpdate, errorUpdate, errorGetUpdate };
@@ -169,5 +222,5 @@ export async function updateUserCompany(job, jobState) {
 
 // Delete Job
 export async function deleteJob(job) {
-  await deleteDoc(doc(db, 'jobOffers', job.uid));
+  await deleteDoc(doc(db, 'jobOffers', job.id));
 }

@@ -1,0 +1,54 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 30px;
+    gap: 20px;
+}
+.searchWrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.paginationListWrapper {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+.paginationWrapper {
+    display: flex;
+    padding: 10px 5px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    border-bottom: 2px solid #D4B200;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    transition: all ease .3s;
+}
+
+.paginationWrapper:hover{
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.paginationText {
+    font-weight: 600;
+    font-size: 15px;
+}
+.pageTitle {
+    font-weight: 500;
+    font-size: 25px;
+}
+.cardListWrapper {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(
+            250px,
+            1fr
+        )
+    );
+    gap: 15px;
+}

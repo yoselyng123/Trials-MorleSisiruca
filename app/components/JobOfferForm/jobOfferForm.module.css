@@ -1,0 +1,62 @@
+.jobForm {
+    background-color: #FFF;
+    padding: 40px;
+    border-radius: 10px;
+}
+.jobFormMultiColumn {
+    display: flex;
+    gap: 20px;
+}
+.jobFormLeft{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    height: fit-content;
+}
+.jobFormRight{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    height: fit-content;
+}
+.labelText{
+    font-size: 14px;
+    font-weight: 600;
+    color: #5B6976;
+    letter-spacing: 0.7px;
+    margin-bottom: 10px;
+}
+
+.jobCategoriesWrapper{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    flex-wrap: wrap;
+    z-index: 1;
+}
+
+.select{
+    /* Reset */
+    border: 0;
+    outline: 0;
+    font: inherit;
+    display: flex;
+    flex: 1;
+    background-color: rgba(255,255,255,0.07);
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 20px;
+    outline: none;
+    border: 1px solid #7C8AA3;
+}
+
+@media screen and (max-width: 947px){
+    .jobFormMultiColumn{
+        flex-direction: column;
+    }
+
+    .jobForm{
+        padding: 20px;
+    }
+}
