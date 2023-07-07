@@ -8,7 +8,12 @@ import {
   RiEditBoxFill,
   RiLogoutBoxRLine,
 } from 'react-icons/ri';
-import { BsPeopleFill, BsBellFill, BsBuildingFillUp } from 'react-icons/bs';
+import {
+  BsPeopleFill,
+  BsBellFill,
+  BsBuildingFillUp,
+  BsFillBuildingFill,
+} from 'react-icons/bs';
 import { IoEnter } from 'react-icons/io5';
 import { MdAddBox } from 'react-icons/md';
 import { useAuthContext } from '@/src/context/AuthContext';
@@ -58,6 +63,13 @@ function SideBar() {
           icon={<HiInboxArrowDown size={20} fill='#7C8AA3' />}
           link='/inbox'
         />
+        {user?.role === 'Professional' && (
+          <SideOption
+            title='Companies'
+            icon={<BsFillBuildingFill size={20} fill='#7C8AA3' />}
+            link='/companies'
+          />
+        )}
 
         {user?.role === 'Company' && (
           <>

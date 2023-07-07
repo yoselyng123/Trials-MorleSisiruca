@@ -1,0 +1,43 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 30px;
+}
+.profileAvatar{
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+}
+
+.topInfoWrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.userNameText{
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: 0.8px;
+}
+.infoText{
+    font-size: 15px;
+    font-weight: 400;
+}
+.locationText{
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 14px;
+}
+
+.subtitleText{
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: 0.7px;
+}
+
+.contactWrapper{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    gap: 5px;
+}

@@ -1,7 +1,6 @@
 .container{
     display: flex;
     flex: 1;
-    margin-bottom: 10px;
     position: relative;
     transition: all ease .5s;
     max-height: 55px;
@@ -15,8 +14,8 @@
     align-items: center;
     background-color: rgba(255,255,255,0.07);
     border-radius: 4px;
-    padding-right: 10px;
-    border: 1px solid #7C8AA3;
+    padding-left: 10px;
+    border: 0.5px solid #636889;
     max-height: 55px;
 }
 
@@ -29,7 +28,7 @@
     background-color: transparent;
     font-size: 14px;
     font-weight: 400;
-    padding: 20px;
+    padding: 20px 20px 20px 10px;
     outline: none;
     border: none;
     max-height: 55px;
@@ -42,9 +41,10 @@
     overflow: hidden;
     overflow-y: auto;
     background-color: #414650;
-    max-height: 120px;
+    max-height: 200px;
+    height: fit-content;
     border-radius: 4px;
-    z-index: 100000;
+    z-index: 100;
     top: 59px;
     width: 100%;
 }

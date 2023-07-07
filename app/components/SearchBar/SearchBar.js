@@ -10,12 +10,16 @@ function SearchBar({
   setSelectedData,
   selectedData,
   oneOption,
+  overrideStyle,
 }) {
   const [searchValue, setSearchValue] = useState('');
   const [filteredData, setFilteredData] = useState([]);
 
   const handleFilter = (e) => {
     setSearchValue(e.target.value);
+    if (oneOption) {
+      setSelectedData(e.target.value);
+    }
 
     const newFilter = data.filter((value) => {
       return value.toLowerCase().includes(e.target.value.toLowerCase());
@@ -52,27 +56,32 @@ function SearchBar({
   });
 
   return (
-    <div className={styles.container} ref={ref}>
+    <div className={styles.container} ref={ref} style={overrideStyle}>
       <div className={styles.searchBarWrapper}>
-        <input
-          type='text'
-          className={styles.searchBar}
-          value={searchValue}
-          onChange={handleFilter}
-          placeholder={placeholder}
-        />
-
         {searchValue !== '' ? (
           <AiOutlineClose
             size={20}
             onClick={() => {
-              setSearchValue('');
-              setFilteredData([]);
+              if (!oneOption) {
+                setSearchValue('');
+                setFilteredData([]);
+              } else {
+                setSearchValue('');
+                setSelectedData('');
+              }
             }}
+            color='#9596A9'
           />
         ) : (
-          <AiOutlineSearch size={22} />
+          <AiOutlineSearch size={22} color='#9596A9' />
         )}
+        <input
+          type='text'
+          className={styles.searchBar}
+          value={!oneOption ? searchValue : selectedData}
+          onChange={handleFilter}
+          placeholder={placeholder}
+        />
       </div>
 
       {filteredData.length !== 0 && (

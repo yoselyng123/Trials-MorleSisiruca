@@ -14,7 +14,6 @@ function JobOffer({ job, setModalOpen, setClickedCompany, setClickedJob }) {
 
   const handleGetCompanyName = async () => {
     const { userRef, errorGet } = await getCompany(job.companyID);
-    console.log(userRef);
     if (userRef) {
       setCompanyInfo(userRef);
     } else {

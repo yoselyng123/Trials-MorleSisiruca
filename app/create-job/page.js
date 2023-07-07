@@ -3,15 +3,14 @@ import React, { useContext, useEffect, useState } from 'react';
 import styles from './createJob.module.css';
 import InputBox from '../components/InputBox/InputBox';
 import SearchBar from '../components/SearchBar/SearchBar';
-import { expertiseAreas, jobCategories } from '@/src/data/data';
+import { countryList, expertiseAreas, jobCategories } from '@/src/data/data';
 import JobCategory from '../components/JobCategory/JobCategory';
-import { CountryDropdown } from 'react-country-region-selector';
-import SelectOption from '../components/SelectOption/SelectOption';
 import ActionBtn from '../components/ActionBtn/ActionBtn';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import { BiChevronRight } from 'react-icons/bi';
 import { createJob } from '@/src/firebase/firestore/job';
 import { useAuthContext } from '@/src/context/AuthContext';
+import Filter from '../components/Filter/Filter';
 
 function page() {
   const { user } = useAuthContext();
@@ -23,6 +22,7 @@ function page() {
   const [jobDescription, setJobDescription] = useState('');
   const [location, setLocation] = useState('');
   const [requiredExperience, setRequiredExperience] = useState('');
+  const [experienceLevel, setExperienceLevel] = useState('');
   const [applicantLimit, setApplicantLimit] = useState('');
   const [jobState, setJobState] = useState('');
   const [jobType, setJobType] = useState('');
@@ -55,7 +55,8 @@ function page() {
       user.uid,
       jobType,
       applicantLimit,
-      paymentRange
+      paymentRange,
+      experienceLevel
     );
 
     if (docRef) {
@@ -69,6 +70,7 @@ function page() {
       setJobType('');
       setListExpertiseAreas([]);
       setListJobCategories([]);
+      setExperienceLevel([]);
     } else {
       console.log('ERROR CREATING JOB OFFER');
     }
@@ -90,12 +92,14 @@ function page() {
           <BiChevronRight size={18} fill='#000' />
           <p className={styles.pageSubtitleTop}>Job Details</p>
         </div>
-        <ActionBtn
-          title='Create job'
-          icon={<AiOutlineArrowRight size={18} fill='#000' />}
-          actionFunction={() => setCreateJobBtnClick(true)}
-          disabled={loading}
-        />
+        <div className={styles.topRightContainer}>
+          <ActionBtn
+            title='Create job'
+            icon={<AiOutlineArrowRight size={18} fill='#000' />}
+            actionFunction={() => setCreateJobBtnClick(true)}
+            disabled={loading}
+          />
+        </div>
       </div>
       <div className={styles.jobForm}>
         <InputBox
@@ -113,29 +117,49 @@ function page() {
         />
         <div className={styles.jobFormMultiColumn}>
           <div className={styles.jobFormLeft}>
-            <InputBox
-              value={requiredExperience}
-              setValue={setRequiredExperience}
-              placeholder='Enter experience in years (optional)'
-              label='Required Experience'
-            />
-            <SelectOption
-              optionsList={[
-                'select a job type',
-                'Full-Time',
-                'Part-Time',
-                'Remote',
-              ]}
+            <p className={styles.labelText}>Job Type</p>
+            <Filter
               title='Job Type'
-              value={jobType}
-              setValue={setJobType}
+              options={['Full-Time', 'Part-Time', 'Remote']}
+              selectedOption={jobType}
+              setSelectedOption={setJobType}
+              overwriteStyle={{
+                marginBottom: '20px',
+                borderRadius: '4px',
+                width: '100%',
+                padding: '18px',
+              }}
+              filterOptionsStyle={{
+                top: '85%',
+              }}
             />
+
+            <p className={styles.labelText}>Location</p>
+            <Filter
+              title='Location'
+              options={countryList}
+              selectedOption={location}
+              setSelectedOption={setLocation}
+              overwriteStyle={{
+                marginBottom: '20px',
+                borderRadius: '4px',
+                width: '100%',
+                padding: '18px',
+              }}
+              filterOptionsStyle={{
+                top: '85%',
+              }}
+            />
+
             <p className={styles.labelText}>Associated Expertise Areas</p>
             <SearchBar
               placeholder='Enter associated areas'
               data={expertiseAreas}
               setSelectedData={setListExpertiseAreas}
               selectedData={listExpertiseAreas}
+              overrideStyle={{
+                marginBottom: '20px',
+              }}
             />
             <div className={styles.jobCategoriesWrapper}>
               {listExpertiseAreas.map((job, index) => (
@@ -154,37 +178,54 @@ function page() {
               placeholder='Enter applicant limit'
               label='Applicant Limit'
             />
+
+            <InputBox
+              value={requiredExperience}
+              setValue={setRequiredExperience}
+              placeholder='Enter experience in years (optional)'
+              label='Required Experience'
+            />
           </div>
           <div className={styles.jobFormRight}>
-            <p className={styles.labelText}>Location</p>
-            <CountryDropdown
-              value={location}
-              onChange={(val) => setLocation(val)}
-              style={{
-                display: 'flex',
-                flex: '1',
-                backgroundColor: 'rgba(255,255,255,0.07)',
-                borderRadius: '4px',
-                fontSize: '14px',
-                fontWeight: '400',
-                padding: '20px',
-                outline: 'none',
-                border: '1px solid #7C8AA3',
+            <p className={styles.labelText}>Experience Level</p>
+            <Filter
+              title='Experience Level'
+              options={[
+                'Intern',
+                'Junior',
+                'Semi-Senior',
+                'Senior',
+                'Lead',
+                'Manager',
+              ]}
+              selectedOption={experienceLevel}
+              setSelectedOption={setExperienceLevel}
+              overwriteStyle={{
                 marginBottom: '20px',
+                borderRadius: '4px',
+                width: '100%',
+                padding: '18px',
               }}
-              tabIndex={50}
+              filterOptionsStyle={{
+                top: '85%',
+              }}
             />
 
-            <SelectOption
-              optionsList={[
-                'select a state',
-                'open',
-                'not accepting candidates',
-                'closed',
-              ]}
+            <p className={styles.labelText}>State</p>
+            <Filter
               title='State'
-              value={jobState}
-              setValue={setJobState}
+              options={['open', 'close', 'not accepting candidates']}
+              selectedOption={jobState}
+              setSelectedOption={setJobState}
+              overwriteStyle={{
+                marginBottom: '20px',
+                borderRadius: '4px',
+                width: '100%',
+                padding: '18px',
+              }}
+              filterOptionsStyle={{
+                top: '85%',
+              }}
             />
             <p className={styles.labelText}>Associated Job Categories</p>
             <SearchBar
@@ -192,6 +233,9 @@ function page() {
               data={jobCategories}
               setSelectedData={setListJobCategories}
               selectedData={listJobCategories}
+              overrideStyle={{
+                marginBottom: '20px',
+              }}
             />
             <div className={styles.jobCategoriesWrapper}>
               {listJobCategories.map((job, index) => (

@@ -1,4 +1,4 @@
-.main{
+.container{
     display: flex;
     flex: 1;
     height: 100vh;
@@ -14,7 +14,7 @@
     gap: 10px;
 }
 
-.jobsListWrapper{
+.companiesListWrapper{
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -24,11 +24,6 @@
 .pageTitle{
     font-size: 24px;
     letter-spacing: 0.5px;
-    margin-bottom: 20px;
-}
-.pageDescription{
-    font-size: 15px;
-    color: #636889;
     margin-bottom: 20px;
 }
 .SearchBarWrapper{
@@ -59,12 +54,12 @@
     background-color: #D4B200;
 }
 
-.jobListWrapperTop{
+.companiesListWrapperTop{
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.jobQuantityText{
+.companiesQuantityText{
     font-size: 16px;
     font-weight: 500;
     color: #636889;
@@ -96,7 +91,7 @@
 
 
 @media screen and (max-width: 947px){
-    .jobsListWrapper{
+    .companiesListWrapper{
         padding: 15px; 
     }
 

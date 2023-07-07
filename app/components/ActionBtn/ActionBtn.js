@@ -8,7 +8,7 @@ function ActionBtn({ title, icon, actionFunction, disabled }) {
       disabled={disabled}
     >
       <p className={styles.btnText}>{title}</p>
-      <div className={styles.iconWrapper}>{icon}</div>
+      {icon && <div className={styles.iconWrapper}>{icon}</div>}
     </button>
   );
 }

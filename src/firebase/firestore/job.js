@@ -6,6 +6,8 @@ import {
   getDocs,
   deleteDoc,
   doc,
+  query,
+  where,
 } from 'firebase/firestore';
 
 const db = getFirestore(firebase_app);
@@ -22,7 +24,8 @@ export async function createJob(
   companyID,
   jobType,
   applicantLimit,
-  paymentRange
+  paymentRange,
+  experienceLevel
 ) {
   var errorAddData = null;
   var docRef = null;
@@ -60,6 +63,7 @@ export async function createJob(
       jobType,
       applicantLimit,
       paymentRange,
+      experienceLevel,
       applicants: [],
       publishedDate: formattedDate,
     });
@@ -102,6 +106,30 @@ export async function getJobsList(job) {
   try {
     const querySnapshot = await getDocs(collection(db, 'jobOffers'));
     querySnapshot.forEach((doc) => {
+      jobsListRef.push(doc.data());
+    });
+  } catch (e) {
+    errorGet = e;
+    console.log(errorGet);
+  }
+
+  return { jobsListRef, errorGet };
+}
+
+// Read Jobs by State
+export async function getJobsListByState(state) {
+  let jobsListRef = [];
+  let errorGet = null;
+
+  try {
+    const q = query(
+      collection(db, 'jobOffers'),
+      where('state', '==', state.toLowerCase())
+    );
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
       jobsListRef.push(doc.data());
     });
   } catch (e) {

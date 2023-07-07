@@ -1,0 +1,51 @@
+
+.subtitleText{
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: 0.7px;
+}
+
+.elementsWrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    
+}
+
+.elementContainer {
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    padding: 10px 0px;
+}
+.elementtext {
+    font-weight: 400;
+    font-size: 15px;
+    font-style: italic;
+}
+
+.showAllBtn {
+    display: flex;
+    width: 100%;
+    gap: 8px;
+    border: none;
+    outline: none;
+    background-color: #fff;
+    cursor: pointer;
+    padding: 10px 0px;
+    transition: all ease .3s;
+    align-items: center;
+    justify-content: center;
+}
+
+.showAllBtn:hover{
+    background-color: #EBEBEB;
+}
+.showAllText {
+    font-weight: 600;
+    font-size: 15px;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+
+

@@ -1,12 +1,14 @@
 .btnWrapper{
     background-color: #FFD731;
-    padding: 10px 15px;
+    padding: 10px 20px;
     display: flex;
+    flex: 1;
+    width: 100%;
     justify-content: space-between;
     align-items: center;
-    border-radius: 15px;
+    justify-content: center;
+    border-radius: 10px;
     text-decoration: none;
-    width: fit-content;
     transition: all ease .3s;
     outline: none;
     border: none;
@@ -15,17 +17,6 @@
 .btnWrapper:hover{
     background-color: #D4B200;
     cursor: pointer;
-}
-
-.btnWrapper2{
-    background-color: #F9F9F9;
-    padding: 16px 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    text-decoration: none;
 }
 
 .btnText{
@@ -47,9 +38,6 @@
     }
 
     .btnWrapper{
-        padding: 10px;
-    }
-    .btnWrapper2{
         padding: 10px;
     }
 }
