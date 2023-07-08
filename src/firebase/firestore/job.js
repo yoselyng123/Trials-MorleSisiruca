@@ -222,5 +222,11 @@ export async function updateJob(
 
 // Delete Job
 export async function deleteJob(job) {
-  await deleteDoc(doc(db, 'jobOffers', job.id));
+  var deleteError = null;
+  try {
+    await deleteDoc(doc(db, 'jobOffers', job.id));
+  } catch (error) {
+    deleteError = error.message;
+  }
+  return deleteError;
 }

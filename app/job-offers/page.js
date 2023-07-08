@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import SearchBar from '../components/SearchBar/SearchBar';
 import styles from './jobOffers.module.css';
-import { getJobsListByCompany } from '@/src/firebase/firestore/job';
+import { deleteJob, getJobsListByCompany } from '@/src/firebase/firestore/job';
 import ActionBtn from '../components/ActionBtn/ActionBtn';
 import JobCard from '../components/JobCard/JobCard';
 import Modal from '../components/Modal/Modal';
@@ -24,12 +24,29 @@ function pages() {
   const [clickedJob, setClickedJob] = useState({});
 
   const [updateJobBtnClick, setUpdateJobBtnClick] = useState(false);
+  const [deleteJobBtnClick, setDeleteJobBtnClick] = useState(false);
 
   const { user } = useAuthContext();
 
   useEffect(() => {
     handleGetJobsList();
   }, [user, updateJobBtnClick]);
+
+  useEffect(() => {
+    if (deleteJobBtnClick) {
+      handleDeleteJob(clickedJob);
+    }
+  }, [deleteJobBtnClick]);
+
+  const handleDeleteJob = async (job) => {
+    const deleteError = await deleteJob(job);
+
+    if (!deleteError) {
+      alert('Se ha eliminado el trabajo con exito!');
+      setModalOpen(close);
+      handleGetJobsList();
+    }
+  };
 
   const handleGetJobsList = async () => {
     const { jobsListRef, errorGet } = await getJobsListByCompany(user);
@@ -192,6 +209,7 @@ function pages() {
               clickedJob={clickedJob}
               updateJobBtnClick={updateJobBtnClick}
               setUpdateJobBtnClick={setUpdateJobBtnClick}
+              setDeleteJobBtnClick={setDeleteJobBtnClick}
             />
           }
           overwriteStyle={{

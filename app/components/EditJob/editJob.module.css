@@ -14,7 +14,14 @@
 
 .topLeftContainer{
     display: flex;
+    flex: 2;
     align-items: center;
+}
+
+.topRightContainer{
+    display: flex;
+    flex: 1;
+    gap: 10px;
 }
 
 .pageTitleTop{
@@ -27,6 +34,12 @@
     font-size: 20px;
     font-weight: 600;
     color: #5C6976;
+}
+
+.footerWrapper{
+    display: flex;
+    flex: 0.5;
+    align-self: flex-end;
 }
 
 
