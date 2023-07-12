@@ -1,0 +1,43 @@
+.cardContainer {
+    display: flex;
+    flex: 1;
+    border: 2px solid #EBEBEB;
+    border-radius: 10px;
+    padding: 15px;
+}
+.cardContainerLeft {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 2px;
+}
+.title {
+   font-size: 16px;
+   font-weight: 500;
+   margin-bottom: 5px;
+}
+.subtitle {
+   font-size: 14px;
+}
+.date {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.6);
+}
+.cardContainerRight {
+    display: flex;
+    align-items: flex-start;
+}
+
+.cvIconAddWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    padding: 4px;
+    transition: all ease .3s;
+}
+
+.cvIconAddWrapper:hover{
+    background-color: #EBEBEB;
+    cursor: pointer;
+}

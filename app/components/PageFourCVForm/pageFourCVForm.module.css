@@ -1,0 +1,46 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.title{
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+}
+.InputWrapper {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    gap: 15px;
+}
+.certificatesListWrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 8px;
+}
+.certificateContainer {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+}
+.certificateText {
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.cvIconAddWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    padding: 4px;
+    transition: all ease .3s;
+}
+
+.cvIconAddWrapper:hover{
+    background-color: #EBEBEB;
+    cursor: pointer;
+}

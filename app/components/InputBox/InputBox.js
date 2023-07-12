@@ -7,12 +7,16 @@ function InputBox({
   label,
   disabled,
   isTextArea,
+  overWriteStyle,
+  overWriteStyleContainer,
 }) {
   return (
-    <div className={styles.container}>
-      <label htmlFor={label} className={styles.labelText}>
-        {label}
-      </label>
+    <div className={styles.container} style={overWriteStyleContainer}>
+      {label && (
+        <label htmlFor={label} className={styles.labelText}>
+          {label}
+        </label>
+      )}
       {isTextArea ? (
         <textarea
           rows={10}
@@ -30,6 +34,7 @@ function InputBox({
           onChange={(e) => setValue(e.target.value)}
           value={value}
           disabled={disabled}
+          style={overWriteStyle}
         />
       )}
     </div>

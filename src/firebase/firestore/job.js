@@ -10,6 +10,7 @@ import {
   where,
   getDoc,
   updateDoc,
+  arrayUnion,
 } from 'firebase/firestore';
 
 const db = getFirestore(firebase_app);
@@ -229,4 +230,18 @@ export async function deleteJob(job) {
     deleteError = error.message;
   }
   return deleteError;
+}
+
+// Apply to job
+export async function handleJobApply(job, userData) {
+  // Update Firestore record
+  const jobRef = doc(db, 'jobOffers', job.id);
+
+  try {
+    await updateDoc(jobRef, {
+      applicants: arrayUnion(userData),
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
 }

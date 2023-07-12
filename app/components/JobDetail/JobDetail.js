@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './jobDetail.module.css';
 import { HiLightBulb } from 'react-icons/hi';
 import {
@@ -9,11 +9,47 @@ import {
 import ReactTimeago from 'react-timeago';
 import { useAuthContext } from '@/src/context/AuthContext';
 import { useRouter } from 'next/navigation';
+import Modal from '../Modal/Modal';
+import CVSelector from '../CVSelector/CVSelector';
+import { getJob } from '@/src/firebase/firestore/job';
+import ActionBtn from '../ActionBtn/ActionBtn';
 
-function JobDetail({ clickedCompany, clickedJob }) {
+function JobDetail({ clickedCompany, clickedJob, setClickedJob }) {
   const { user } = useAuthContext();
 
   const router = useRouter();
+
+  const [selectedCVUrl, setSelectedCVUrl] = useState('');
+  const [isModalCVOpen, setIsModalCVOpen] = useState(false);
+  const [applyBtnClicked, setApplyBtnClicked] = useState(false);
+
+  const handleApply = () => {
+    setIsModalCVOpen(true);
+  };
+
+  useEffect(() => {
+    refetchJob();
+  }, [applyBtnClicked]);
+
+  const refetchJob = async () => {
+    const { docRef, errorGet } = await getJob(clickedJob);
+
+    if (docRef) {
+      setClickedJob(docRef);
+    }
+  };
+
+  const checkIfUserHasAppliedAlready = () => {
+    const found = clickedJob.applicants.find(
+      (applicant) => applicant.userId === user.uid
+    );
+
+    if (found) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -47,10 +83,21 @@ function JobDetail({ clickedCompany, clickedJob }) {
         </p>
       </div>
       {user ? (
-        <button className={styles.applyBtn} onClick={() => {}}>
-          <p className={styles.applyBtnText}>Apply</p>
-          <BsArrowUpRightCircle color='#000' size={20} />
-        </button>
+        checkIfUserHasAppliedAlready() ? (
+          <button
+            className={styles.applyBtn}
+            onClick={() => handleApply()}
+            disabled={true}
+          >
+            <p className={styles.applyBtnText}>Already Applied</p>
+            <BsArrowUpRightCircle color='rgba(0,0,0,0.2)' size={20} />
+          </button>
+        ) : (
+          <button className={styles.applyBtn} onClick={() => handleApply()}>
+            <p className={styles.applyBtnText}>Apply</p>
+            <BsArrowUpRightCircle color='#000' size={20} />
+          </button>
+        )
       ) : (
         <button
           className={styles.applyBtn}
@@ -88,6 +135,29 @@ function JobDetail({ clickedCompany, clickedJob }) {
             </div>
           </div>
         </>
+      )}
+
+      {isModalCVOpen && (
+        <Modal
+          setIsOpen={setIsModalCVOpen}
+          modalContent={
+            <CVSelector
+              selectedCVUrl={selectedCVUrl}
+              setSelectedCVUrl={setSelectedCVUrl}
+              clickedJob={clickedJob}
+              setIsModalCVOpen={setIsModalCVOpen}
+              setApplyBtnClicked={setApplyBtnClicked}
+              applyBtnClicked={applyBtnClicked}
+            />
+          }
+          overwriteStyle={{
+            width: '40vw',
+            height: '40vh',
+          }}
+          overWriteStyleModalContent={{
+            padding: '0px',
+          }}
+        />
       )}
     </div>
   );

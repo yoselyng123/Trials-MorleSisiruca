@@ -32,8 +32,6 @@ function page() {
     return true;
   };
 
-  const handleProfilePicChange = () => {};
-
   if (user) {
     return (
       <div className={styles.container}>

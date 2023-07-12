@@ -14,17 +14,21 @@ function page() {
   const router = useRouter();
   const { user, setUser } = useAuthContext();
 
+  // Profile Info
   const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [lastname, setLastname] = useState('');
   const [description, setDescription] = useState('');
+  const [location, setLocation] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [profilePic, setProfilePic] = useState('');
   const [listJobCategories, setListJobCategories] = useState([]);
   const [listExpertiseAreas, setListExpertiseAreas] = useState([]);
 
-  useEffect(() => {
-    if (!user) {
-      router.push('/');
-    }
-  }, []);
+  const [adjCvList, setAdjCvList] = useState([]);
+  const [educationList, setEducationList] = useState([]);
+  const [jobExperienceList, setJobExperienceList] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleDeleteJob = (index) => {
     var copyOfListJobCategories = [...listJobCategories];
@@ -51,7 +55,13 @@ function page() {
         lastname,
         description,
         listJobCategories,
-        listExpertiseAreas
+        listExpertiseAreas,
+        phoneNumber,
+        location,
+        setLoading,
+        educationList,
+        jobExperienceList,
+        adjCvList
       );
 
     if (userRefUpdate) {
@@ -114,6 +124,7 @@ function page() {
           data={jobCategories}
           setSelectedData={setListJobCategories}
           selectedData={listJobCategories}
+          overrideStyle={{ marginBottom: '15px' }}
         />
 
         <div className={styles.jobCategoriesWrapper}>
@@ -134,6 +145,7 @@ function page() {
           data={expertiseAreas}
           setSelectedData={setListExpertiseAreas}
           selectedData={listExpertiseAreas}
+          overrideStyle={{ marginBottom: '15px' }}
         />
         <div className={styles.jobCategoriesWrapper}>
           {listExpertiseAreas.map((job, index) => (

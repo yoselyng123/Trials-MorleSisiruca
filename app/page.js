@@ -259,6 +259,7 @@ export default function Home() {
               <JobDetail
                 clickedCompany={clickedCompany}
                 clickedJob={clickedJob}
+                setClickedJob={setClickedJob}
               />
             }
           />

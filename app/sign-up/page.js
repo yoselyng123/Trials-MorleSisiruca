@@ -56,7 +56,7 @@ function SignUpPage() {
         <h3 className={styles.formTitle}>Sign Up</h3>
 
         <label htmlFor='username' className={styles.labelText}>
-          Username
+          Email
         </label>
         <input
           type='text'

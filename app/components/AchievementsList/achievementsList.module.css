@@ -1,0 +1,36 @@
+.row{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.cvIconAddWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    padding: 4px;
+    transition: all ease .3s;
+}
+
+.cvIconAddWrapper:hover{
+    background-color: #EBEBEB;
+    cursor: pointer;
+}
+
+.achievementsWrapper{
+    padding: 0px 10px;
+    margin-bottom: 15px;
+}
+
+.achievementText {
+    font-size: 14px;
+    letter-spacing: 0.6px;
+    font-weight: 500;
+}
+
+.achievementWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

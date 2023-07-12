@@ -128,6 +128,7 @@ function DataCompany({ saveBtnClick, setSaveBtnClick, loading, setLoading }) {
             data={expertiseAreas}
             setSelectedData={setListExpertiseAreas}
             selectedData={listExpertiseAreas}
+            overrideStyle={{ marginBottom: '10px' }}
           />
           <div className={styles.jobCategoriesWrapper}>
             {listExpertiseAreas.map((job, index) => (

@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.title{
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+}
+
+.InputWrapper {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    gap: 15px;
+}
+.jobCategoriesWrapper {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.btnWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

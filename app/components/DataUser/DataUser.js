@@ -5,14 +5,21 @@ import {
   updateUserProfessional,
   uploadImage,
 } from '@/src/firebase/auth/signup';
+// Assets
 import { expertiseAreas, jobCategories } from '@/src/data/data';
 import { useLoadScript } from '@react-google-maps/api';
+// Components
 import InputBox from '../InputBox/InputBox';
 import SearchBar from '../SearchBar/SearchBar';
 import JobCategory from '../JobCategory/JobCategory';
 import Places from '../Places/Places';
 import Map from '../Map/Map';
 import ProfileAvatar from '../ProfileAvatar/ProfileAvatar';
+import CVManager from '../CVManager/CVManager';
+import Modal from '../Modal/Modal';
+import CVForm from '../CVForm/CVForm';
+import EducationSection from '../EducationSection/EducationSection';
+import JobExperienceSection from '../JobExperienceSection/JobExperienceSection';
 
 function DataUser({ saveBtnClick, setSaveBtnClick, loading, setLoading }) {
   const [libraries] = useState(['places']);
@@ -21,6 +28,7 @@ function DataUser({ saveBtnClick, setSaveBtnClick, loading, setLoading }) {
     libraries,
   });
 
+  // Profile Info
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [lastname, setLastname] = useState('');
@@ -31,9 +39,17 @@ function DataUser({ saveBtnClick, setSaveBtnClick, loading, setLoading }) {
   const [mapCoordinates, setMapCoordinates] = useState(null);
   const [listJobCategories, setListJobCategories] = useState([]);
   const [listExpertiseAreas, setListExpertiseAreas] = useState([]);
-
   const [picture, setPicture] = useState(null);
+
+  const [adjCvList, setAdjCvList] = useState([]);
+  const [educationList, setEducationList] = useState([]);
+  const [jobExperienceList, setJobExperienceList] = useState([]);
+
+  //User Context
   const { user, setUser } = useAuthContext();
+
+  // Modal handler for CV
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -47,6 +63,15 @@ function DataUser({ saveBtnClick, setSaveBtnClick, loading, setLoading }) {
       setLocation(user.location);
       if (user?.profilePic) {
         setProfilePic(user.profilePic);
+      }
+      if (user?.educationList) {
+        setEducationList(user.educationList);
+      }
+      if (user?.jobExperienceList) {
+        setJobExperienceList(user.jobExperienceList);
+      }
+      if (user?.adjCvList) {
+        setAdjCvList(user.adjCvList);
       }
     }
   }, []);
@@ -70,6 +95,9 @@ function DataUser({ saveBtnClick, setSaveBtnClick, loading, setLoading }) {
         phoneNumber,
         location,
         setLoading,
+        educationList,
+        jobExperienceList,
+        adjCvList,
         picture
       );
 
@@ -97,13 +125,14 @@ function DataUser({ saveBtnClick, setSaveBtnClick, loading, setLoading }) {
 
   return (
     <div className={styles.container}>
-      <ProfileAvatar
-        profilePic={profilePic}
-        setProfilePic={setProfilePic}
-        picture={picture}
-        setPicture={setPicture}
-      />
-
+      <div className={styles.profilePicWrapper}>
+        <ProfileAvatar
+          profilePic={profilePic}
+          setProfilePic={setProfilePic}
+          picture={picture}
+          setPicture={setPicture}
+        />
+      </div>
       <div className={styles.inputWrapper}>
         <div className={styles.inputWrapperLeft}>
           <InputBox
@@ -130,6 +159,7 @@ function DataUser({ saveBtnClick, setSaveBtnClick, loading, setLoading }) {
             setValue={setDescription}
             placeholder='Enter your description'
             label='Description'
+            isTextArea={true}
           />
           <InputBox
             value={phoneNumber}
@@ -145,6 +175,7 @@ function DataUser({ saveBtnClick, setSaveBtnClick, loading, setLoading }) {
             data={jobCategories}
             setSelectedData={setListJobCategories}
             selectedData={listJobCategories}
+            overrideStyle={{ marginBottom: '10px' }}
           />
 
           <div className={styles.jobCategoriesWrapper}>
@@ -166,6 +197,7 @@ function DataUser({ saveBtnClick, setSaveBtnClick, loading, setLoading }) {
             data={expertiseAreas}
             setSelectedData={setListExpertiseAreas}
             selectedData={listExpertiseAreas}
+            overrideStyle={{ marginBottom: '10px' }}
           />
           <div className={styles.jobCategoriesWrapper}>
             {listExpertiseAreas.map((job, index) => (
@@ -195,6 +227,39 @@ function DataUser({ saveBtnClick, setSaveBtnClick, loading, setLoading }) {
           )}
         </div>
       </div>
+      <CVManager
+        setModalOpen={setModalOpen}
+        adjCvList={adjCvList}
+        setAdjCvList={setAdjCvList}
+      />
+      <EducationSection
+        educationList={educationList}
+        setEducationList={setEducationList}
+      />
+      <JobExperienceSection
+        setJobExperienceList={setJobExperienceList}
+        jobExperienceList={jobExperienceList}
+      />
+      {/* Modal */}
+      {modalOpen && (
+        <Modal
+          setIsOpen={setModalOpen}
+          modalContent={
+            <CVForm
+              setAdjCvList={setAdjCvList}
+              adjCvList={adjCvList}
+              setAddFormModalOpen={setModalOpen}
+            />
+          }
+          overwriteStyle={{
+            width: '50vw',
+            height: '70vh',
+          }}
+          overWriteStyleModalContent={{
+            padding: '0px',
+          }}
+        />
+      )}
     </div>
   );
 }

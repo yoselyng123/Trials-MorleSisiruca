@@ -34,35 +34,37 @@ function SideBar() {
           <h2 className={styles.title}>Trials</h2>
         </div>
 
-        {user?.profilePic && (
-          <SideOption
-            title='Profile'
-            icon={
-              <img
-                src={user.profilePic !== '' ? user.profilePic : defaultAvatar}
-                className={styles.personalAvatar}
-                alt='avatar'
-              />
-            }
-            link='/profile'
-          />
-        )}
         <SideOption
           title='Home'
           icon={<AiFillHome size={20} fill='#7C8AA3' />}
           link='/'
         />
+        {user && (
+          <>
+            <SideOption
+              title='Profile'
+              icon={
+                <img
+                  src={user?.profilePic ? user?.profilePic : defaultAvatar}
+                  className={styles.personalAvatar}
+                  alt='avatar'
+                />
+              }
+              link='/profile'
+            />
 
-        <SideOption
-          title='Notifications'
-          icon={<BsBellFill size={20} fill='#7C8AA3' />}
-          link='/notifications'
-        />
-        <SideOption
-          title='Inbox'
-          icon={<HiInboxArrowDown size={20} fill='#7C8AA3' />}
-          link='/inbox'
-        />
+            <SideOption
+              title='Notifications'
+              icon={<BsBellFill size={20} fill='#7C8AA3' />}
+              link='/notifications'
+            />
+            <SideOption
+              title='Inbox'
+              icon={<HiInboxArrowDown size={20} fill='#7C8AA3' />}
+              link='/inbox'
+            />
+          </>
+        )}
         {user?.role === 'Professional' && (
           <SideOption
             title='Companies'

@@ -1,0 +1,32 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 20px;
+}
+
+
+.contentWrapper{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.formWrapper{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    flex-grow: 1;
+}
+
+.footerWrapper{
+    display: flex;
+    margin-bottom: auto;
+    align-items: center;
+    gap: 50%;
+}
+
+.fakeBtn{
+    display: flex;
+    flex: 1;
+}

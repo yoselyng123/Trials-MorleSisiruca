@@ -1,0 +1,33 @@
+.cvsWrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.cvsTop {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    align-items: center;
+}
+.subtitleText {
+    font-weight: 500;
+    font-size: 18px;
+}
+.cvIconAddWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    padding: 4px;
+    transition: all ease .3s;
+}
+
+.cvIconAddWrapper:hover{
+    background-color: #EBEBEB;
+    cursor: pointer;
+}
+.cvListWrapper{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
