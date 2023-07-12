@@ -2,8 +2,9 @@
 import { useContext, createContext, useState, useEffect } from 'react';
 import { createUser, getUser } from '../firebase/auth/signup';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../firebase/firebase.config';
+import { auth, db } from '../firebase/firebase.config';
 import { useRouter } from 'next/navigation';
+import { doc, onSnapshot } from 'firebase/firestore';
 
 export const AuthContext = createContext({});
 
@@ -21,7 +22,12 @@ export const AuthContextProvider = ({ children }) => {
         // User is signed in
         const { userRef, errorGet } = await getUser(user);
         if (userRef) {
-          setUser(userRef);
+          const unsubscribeFirestore = onSnapshot(
+            doc(db, 'Users', userRef.uid),
+            (snapshot) => {
+              setUser({ uid: userRef.uid, ...snapshot.data() });
+            }
+          );
         } else {
           const errorAddData = await createUser(user);
           if (!errorAddData) {
