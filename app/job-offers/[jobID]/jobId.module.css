@@ -1,0 +1,111 @@
+.container {
+    display: flex;
+    flex: 1;
+}
+.contentWrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 20px;
+    padding: 30px;
+}
+.topSection {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding: 10px 10px 20px 10px;
+    border-bottom: 0.2px solid rgba(0, 0, 0, 0.1);
+}   
+.iconWrapper {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FFF;
+    border-radius: 100%;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    transition: all ease .3s;
+}
+.iconWrapper:hover {
+   cursor: pointer;
+   transform: scale(1.1);
+}
+.iconWrapper > svg {
+    transition: all ease .3s;
+}
+.iconWrapper:hover > svg {
+   transform: scale(1.1);
+}
+.topInfoWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.jobCategoryText {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 14px;
+    letter-spacing: 0.6px;
+}
+.jobTitleText {
+    font-weight: 500;
+    font-size: 24px;
+    letter-spacing: 0.5px;
+}
+.jobTypeText {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 14px;
+    letter-spacing: 0.6px;
+}
+.counterWrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.totalCandidatesText {
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 0.4px;
+    color: #426866;
+}
+.counterNumberWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5px 4px;
+    background-color: #426866;
+    border-radius: 4px;
+}
+.numberText {
+    color: #FFF;
+    font-weight: 500;
+    font-size: 14px;
+}
+.tableWrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 15px;
+}
+.tableHeader {
+    display: flex;
+    align-items: center;
+    padding: 10px 30px;
+    background-color: #FFF;
+    border-radius: 4px;
+}
+.sectionWrapper {
+    display: flex;
+    flex: 1;
+}
+.highlightText {
+    font-weight: 600;
+    font-size: 15px;
+}
+.tableContent {
+    display: flex;
+    flex-direction: column;
+    background-color: #FFF;
+    border-radius: 4px;
+}

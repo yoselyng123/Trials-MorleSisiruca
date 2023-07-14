@@ -13,6 +13,7 @@ import Modal from '../Modal/Modal';
 import CVSelector from '../CVSelector/CVSelector';
 import { getJob } from '@/src/firebase/firestore/job';
 import ActionBtn from '../ActionBtn/ActionBtn';
+import Image from 'next/image';
 
 function JobDetail({ clickedCompany, clickedJob, setClickedJob }) {
   const { user } = useAuthContext();
@@ -116,10 +117,12 @@ function JobDetail({ clickedCompany, clickedJob, setClickedJob }) {
         <>
           <p className={styles.subtitle}>About the company</p>
           <div className={styles.companyWrapper}>
-            <img
+            <Image
               className={styles.personalAvatar}
               alt='avatar'
               src={clickedCompany.profilePic}
+              width={60}
+              height={60}
             />
             <div className={styles.companyInfoWrapper}>
               <p className={styles.companyTitle}>{clickedCompany.name}</p>

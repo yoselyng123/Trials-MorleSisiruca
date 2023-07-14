@@ -19,6 +19,7 @@ import { MdAddBox } from 'react-icons/md';
 import { useAuthContext } from '@/src/context/AuthContext';
 import SideOption from '../SideOption/SideOption';
 import { auth } from '@/src/firebase/firebase.config';
+import Image from 'next/image';
 
 function SideBar() {
   const { user } = useAuthContext();
@@ -33,21 +34,24 @@ function SideBar() {
           <BiNetworkChart size={45} fill='#FFD731' />
           <h2 className={styles.title}>Trials</h2>
         </div>
-
-        <SideOption
-          title='Home'
-          icon={<AiFillHome size={20} fill='#7C8AA3' />}
-          link='/'
-        />
+        {(user?.role === 'Professional' || !user) && (
+          <SideOption
+            title='Home'
+            icon={<AiFillHome size={20} fill='#7C8AA3' />}
+            link='/'
+          />
+        )}
         {user && (
           <>
             <SideOption
               title='Profile'
               icon={
-                <img
+                <Image
                   src={user?.profilePic ? user?.profilePic : defaultAvatar}
                   className={styles.personalAvatar}
                   alt='avatar'
+                  height={23}
+                  width={23}
                 />
               }
               link='/profile'

@@ -1,0 +1,44 @@
+
+.tableElement {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    padding: 20px 30px;
+}
+.sectionContentWrapper {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: 7px;
+}
+.profilePic {
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+}
+
+.circle{
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    background-color: #2D8EFF;
+}
+.userNameText {
+    font-size: 15px;
+    font-weight: 500;
+}
+.stageText {
+    font-size: 15px;
+    font-style: italic;
+}
+.cvText {
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all ease .3s;
+}
+.cvText:hover {
+    text-decoration: underline;
+    color: #D4B200;
+    cursor: pointer;
+}

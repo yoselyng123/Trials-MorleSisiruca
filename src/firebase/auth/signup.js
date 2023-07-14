@@ -156,6 +156,27 @@ export async function getUser(user) {
 
   return { userRef, errorGet };
 }
+// Read user by ID
+export async function getUserByID(userID) {
+  let userRef = null;
+  let errorGet = null;
+
+  try {
+    const docSnap = await getDoc(doc(db, 'Users', userID));
+    if (docSnap.exists()) {
+      userRef = docSnap.data();
+      console.log('Document data:', docSnap.data());
+    } else {
+      // docSnap.data() will be undefined in this case
+      console.log('No user in db!');
+    }
+  } catch (e) {
+    errorGet = e;
+    console.log(errorGet);
+  }
+
+  return { userRef, errorGet };
+}
 // Update User Professional
 export async function updateUserProfessional(
   user,

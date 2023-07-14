@@ -4,7 +4,7 @@
     flex: 1;
     background-color: #fff;
     border-radius: 10px;
-    border-top: 2px solid #13CE66;
+    /* border-top: 2px solid #13CE66; */
     padding: 20px;
     gap: 30px;
     transition: all ease .3s;
@@ -19,9 +19,9 @@
 
 .topInfoWrapper{
     display: flex;
-    flex-direction: column;
     flex: 1;
-    gap: 8px;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .jobCategoryText {
@@ -74,16 +74,36 @@
     display: flex;
     align-self: center;
     justify-content: center;
-    gap: 5px;
+    gap: 1px;
 }
+.jobDetailsWrapper {
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    gap: 1px;
+    transition: all ease .3s;
+}
+.jobDetailsWrapper:hover > p{
+    transform: scale(1.1);
+}
+.jobDetailsWrapper:hover > svg{
+    transform: scale(1.1);
+    transform: translateX(8px);
+}
+.jobDetailsWrapper > svg{
+    transition: all ease-in .2s;
+}
+
 .jobStateText {
     font-weight: 500;
     color: rgba(0, 0, 0, 0.6);
     font-size: 15px;
+    transition: all ease .3s;
 }
 
 .candidatesCounterWrapper {
     display: flex;
+    flex: 1;
     flex-direction: column;
     gap: 7px;
     padding-left: 10px;
@@ -91,8 +111,8 @@
     align-self: flex-start;
 }
 .candidatesTotaltext {
-    font-weight: 500;
-    color: rgba(0, 0, 0, 0.6);
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.5);
     font-size: 14px;
 }
 .candidatesCounterText {
@@ -107,4 +127,24 @@
     align-self: center;
     align-items: center;
     justify-content: center;
+}
+
+.cvIconAddWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    padding: 4px;
+    transition: all ease .3s;
+}
+
+.cvIconAddWrapper:hover{
+    background-color: #FFD731;
+    cursor: pointer;
+}
+.cvIconAddWrapper > svg{
+    transition: all ease .3s;
+}
+.cvIconAddWrapper:hover > svg{
+    fill: #000;
 }

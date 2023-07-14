@@ -70,8 +70,6 @@ export async function createJob(
       applicants: [],
       publishedDate: formattedDate,
     });
-
-    console.log(docRef);
   } catch (e) {
     errorAddData = e.message;
   }
@@ -88,7 +86,6 @@ export async function getJob(job) {
     const docSnap = await getDoc(doc(db, 'jobOffers', job.id));
     if (docSnap.exists()) {
       docRef = { id: docSnap.id, ...docSnap.data() };
-      console.log('Document data:', docSnap.data());
     } else {
       // docSnap.data() will be undefined in this case
       console.log('No job in db!');
@@ -154,8 +151,6 @@ export async function getJobsListByCompany(user) {
       where('companyID', '==', user.uid)
     );
 
-    console.log(user.uid);
-
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       // doc.data() is never undefined for query doc snapshots
@@ -165,7 +160,6 @@ export async function getJobsListByCompany(user) {
     errorGet = e;
     console.log(errorGet);
   }
-  console.log(jobsListRef);
 
   return { jobsListRef, errorGet };
 }
@@ -244,4 +238,32 @@ export async function handleJobApply(job, userData) {
   } catch (error) {
     console.log(error.message);
   }
+}
+
+// Update Job State
+export async function updateJobState(job, newState) {
+  var errorUpdate = null;
+  var jobRefUpdate = null;
+  var errorGetUpdate = null;
+  // update user info to firestore db
+  try {
+    await updateDoc(
+      doc(db, 'jobOffers', job.id),
+      {
+        state: newState,
+      },
+      {
+        merge: true,
+      }
+    );
+
+    const { docRef, errorGet } = await getJob(job);
+    jobRefUpdate = docRef;
+    errorGetUpdate = errorGet;
+  } catch (e) {
+    errorUpdate = e.message;
+    console.log(errorUpdate);
+  }
+
+  return { jobRefUpdate, errorUpdate, errorGetUpdate };
 }

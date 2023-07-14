@@ -27,9 +27,6 @@ function JobExperienceSection({ jobExperienceList, setJobExperienceList }) {
           >
             <IoAddOutline size={25} color='#9596A9' />
           </div>
-          <div className={styles.cvIconAddWrapper}>
-            <BiPencil size={20} color='rgba(0,0,0,0.4)' />
-          </div>
         </div>
       </div>
       <div className={styles.experienceCardsWrapper}>

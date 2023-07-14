@@ -38,7 +38,7 @@ function page() {
     );
 
     if (userRef) {
-      router.push('/');
+      router.push('/job-offers');
     } else {
       console.log('NO USERREF SIGNUP COMPANY');
     }

@@ -4,6 +4,7 @@ import { MdPeopleAlt } from 'react-icons/md';
 import ReactTimeago from 'react-timeago';
 import { useEffect } from 'react';
 import { getCompany } from '@/src/firebase/auth/signup';
+import Image from 'next/image';
 
 function JobOffer({ job, setModalOpen, setClickedCompany, setClickedJob }) {
   const [companyInfo, setCompanyInfo] = useState('');
@@ -21,67 +22,70 @@ function JobOffer({ job, setModalOpen, setClickedCompany, setClickedJob }) {
     }
   };
 
-  return (
-    <div
-      className={styles.container}
-      onClick={() => {
-        setClickedCompany(companyInfo);
-        setClickedJob(job);
-        setModalOpen(true);
-      }}
-    >
-      <div className={styles.leftContainer}>
-        <img
+  if (companyInfo) {
+    return (
+      <div
+        className={styles.container}
+        onClick={() => {
+          setClickedCompany(companyInfo);
+          setClickedJob(job);
+          setModalOpen(true);
+        }}
+      >
+        <Image
           src={companyInfo.profilePic}
           className={styles.personalAvatar}
           alt='avatar'
+          width={80}
+          height={80}
         />
-      </div>
-      <div className={styles.rightContainer}>
-        <div className={styles.infoTopContainer}>
-          <p className={styles.jobTitle}>{job.title}</p>
-          <ReactTimeago
-            date={job.publishedDate}
-            style={{
-              fontSize: '14px',
-              fontWeight: '400',
-              color: '#9596AA',
-            }}
-          />
-        </div>
-        <div className={styles.infoMidContainer}>
-          <div className={styles.companyNameWrapper}>
-            <p className={styles.companyName}>{companyInfo.name}</p>
+
+        <div className={styles.rightContainer}>
+          <div className={styles.infoTopContainer}>
+            <p className={styles.jobTitle}>{job.title}</p>
+            <ReactTimeago
+              date={job.publishedDate}
+              style={{
+                fontSize: '14px',
+                fontWeight: '400',
+                color: '#9596AA',
+              }}
+            />
           </div>
-          <div className={styles.companyExtraInfoWrapper}>
-            <div className={styles.companySizeWrapper}>
-              <MdPeopleAlt size={16} fill='#9596AA' />
-              <p className={styles.complementaryText}>
-                {companyInfo.companySize}
-              </p>
+          <div className={styles.infoMidContainer}>
+            <div className={styles.companyNameWrapper}>
+              <p className={styles.companyName}>{companyInfo.name}</p>
             </div>
-            <p className={styles.complementaryText}> $ {job.paymentRange}</p>
+            <div className={styles.companyExtraInfoWrapper}>
+              <div className={styles.companySizeWrapper}>
+                <MdPeopleAlt size={16} fill='#9596AA' />
+                <p className={styles.complementaryText}>
+                  {companyInfo.companySize}
+                </p>
+              </div>
+              <p className={styles.complementaryText}> $ {job.paymentRange}</p>
+            </div>
           </div>
-        </div>
-        <div className={styles.tagsWrapper}>
-          <div className={styles.tagContainerTime}>
-            <div className={styles.circleTime} />
-            <p className={styles.tagTitle}>{job.jobType}</p>
+          <div className={styles.tagsWrapper}>
+            <div className={styles.tagContainerTime}>
+              <div className={styles.circleTime} />
+              <p className={styles.tagTitle}>{job.jobType}</p>
+            </div>
+            {job.jobCategories?.map((category, index) => {
+              if (index <= 1) {
+                return (
+                  <div className={styles.tagContainerArea} key={index}>
+                    <div className={styles.circleArea} />
+                    <p className={styles.tagTitle}>{category}</p>
+                  </div>
+                );
+              }
+            })}
           </div>
-          {job.jobCategories?.map((category, index) => {
-            if (index <= 1) {
-              return (
-                <div className={styles.tagContainerArea} key={index}>
-                  <div className={styles.circleArea} />
-                  <p className={styles.tagTitle}>{category}</p>
-                </div>
-              );
-            }
-          })}
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default JobOffer;

@@ -8,16 +8,13 @@
     padding: 20px;
     cursor: pointer;
     transition: all ease .3s;
+    gap:10px
 }
 
 .container:hover{
     background-color: rgba(240, 240, 240, 0.861);
 }
 
-.leftContainer{
-    display: flex;
-    flex: 0.1;
-}
 .personalAvatar{
     width: 40px;
     height: 40px;

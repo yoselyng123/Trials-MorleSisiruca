@@ -1,5 +1,5 @@
 'use client'; // This is a client component
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './signIn.module.css';
 import { useRouter } from 'next/navigation';
 // ASSETS
@@ -9,44 +9,34 @@ import {
   signInWithGithub,
   signInWithGoogle,
 } from '@/src/firebase/auth/signin';
+import { useAuthContext } from '@/src/context/AuthContext';
 
 function SignInPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
 
+  const { user } = useAuthContext();
+
+  useEffect(() => {
+    if (user?.role === 'Professional') {
+      router.push('/');
+    } else if (user?.role === 'Company') {
+      router.push('/job-offers');
+    }
+  }, [user]);
+
   const handleSubmitForm = async (event) => {
     event.preventDefault();
-    const { userRef, errorSignUp } = await signInWithEmailAndPasswordAuth(
-      email,
-      password
-    );
-
-    if (userRef) {
-      router.push('/');
-    } else {
-      console.log('NO HAY USERREF EN SIGNIN');
-    }
+    await signInWithEmailAndPasswordAuth(email, password);
   };
   const handleSignInWithGoogle = async (event) => {
     event.preventDefault();
-    const { userRef, errorSignUp } = await signInWithGoogle();
-
-    if (userRef) {
-      router.push('/');
-    } else {
-      console.log('NO HAY USERREF EN SIGNIN');
-    }
+    await signInWithGoogle();
   };
   const handleSignInWithGithub = async (event) => {
     event.preventDefault();
-    const { userRef, errorSignUp } = await signInWithGithub();
-
-    if (userRef) {
-      router.push('/');
-    } else {
-      console.log('NO HAY USERREF EN SIGNIN');
-    }
+    await signInWithGithub();
   };
 
   return (

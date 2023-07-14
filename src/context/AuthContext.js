@@ -28,6 +28,8 @@ export const AuthContextProvider = ({ children }) => {
               setUser({ uid: userRef.uid, ...snapshot.data() });
             }
           );
+          // Return cleanup function for Firestore listener
+          return () => unsubscribeFirestore();
         } else {
           const errorAddData = await createUser(user);
           if (!errorAddData) {

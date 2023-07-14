@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import styles from './profileAvatar.module.css';
 import { useAuthContext } from '@/src/context/AuthContext';
+import Image from 'next/image';
 
 function ProfileAvatar({ profilePic, setProfilePic, picture, setPicture }) {
   const defaultAvatar =
@@ -28,15 +29,21 @@ function ProfileAvatar({ profilePic, setProfilePic, picture, setPicture }) {
               alt='avatar'
             />
           ) : (
-            <img
+            <Image
               src={imagePreview}
               className={styles.personalAvatar}
               alt='avatar'
+              width={110}
+              height={110}
             />
           )}
 
           <figcaption className={styles.personalFigcaption}>
-            <img src='https://raw.githubusercontent.com/ThiagoLuizNunes/angular-boilerplate/master/src/assets/imgs/camera-white.png' />
+            <Image
+              src='https://raw.githubusercontent.com/ThiagoLuizNunes/angular-boilerplate/master/src/assets/imgs/camera-white.png'
+              width={110}
+              height={110}
+            />
           </figcaption>
         </figure>
       </label>

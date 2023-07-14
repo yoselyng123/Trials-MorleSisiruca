@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './cVSelector.module.css';
 import { useAuthContext } from '@/src/context/AuthContext';
 import ActionBtn from '../ActionBtn/ActionBtn';
-import { handleJobApply } from '@/src/firebase/firestore/job';
+import { handleJobApply, updateJobState } from '@/src/firebase/firestore/job';
 
 function CVSelector({
   selectedCVUrl,
@@ -25,18 +25,47 @@ function CVSelector({
   };
 
   const handleApply = async () => {
-    console.log(checkIfUserHasAppliedAlready());
-    if (
-      clickedJob.applicants.length < clickedJob.applicantLimit &&
-      selectedCVUrl !== ''
-    ) {
-      await handleJobApply(clickedJob, {
-        cv: selectedCVUrl,
-        userId: user.uid,
-      });
-      setIsModalCVOpen(false);
-      alert('You have applied to this job succesfully!');
-      setApplyBtnClicked(!applyBtnClicked);
+    const months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
+
+    if (selectedCVUrl === '') {
+      alert('You need a CV to apply to a job');
+    } else {
+      if (
+        clickedJob.applicants.length < clickedJob.applicantLimit &&
+        selectedCVUrl !== ''
+      ) {
+        const currentDate = new Date();
+        const formattedDate = `${currentDate.getDay()} ${
+          months[currentDate.getMonth()]
+        }, ${currentDate.getFullYear()}`;
+
+        await handleJobApply(clickedJob, {
+          cv: selectedCVUrl,
+          userId: user.uid,
+          stage: 'new', // new | in process | closed
+          dateApplied: formattedDate,
+        });
+
+        if (clickedJob.applicantLimit - 1 === clickedJob.applicants.length) {
+          updateJobState(clickedJob, 'closed');
+        }
+        setIsModalCVOpen(false);
+        alert('You have applied to this job succesfully!');
+        setApplyBtnClicked(!applyBtnClicked);
+      }
     }
   };
 
