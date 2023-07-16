@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
             <SideBar />
           </div>
           <div className='contentWrapper'>
-            {/* <RouteHandler /> */}
+            <RouteHandler />
             {children}
           </div>
         </AuthContextProvider>
