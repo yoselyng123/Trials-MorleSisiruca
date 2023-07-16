@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from 'react';
 import styles from './emailForm.module.css';
 import InputBox from '../InputBox/InputBox';

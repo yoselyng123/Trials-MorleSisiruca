@@ -1,7 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import styles from './jobId.module.css';
-import Filter from '@/app/components/Filter/Filter';
 import { IoChevronBackOutline } from 'react-icons/io5';
 import { useRouter } from 'next/navigation';
 import { doc, onSnapshot } from 'firebase/firestore';
@@ -10,7 +9,7 @@ import CandidateTableElement from '@/app/components/CandidateTableElement/Candid
 import { getApplicationByJobOfferId } from '@/src/firebase/firestore/application';
 import Modal from '@/app/components/Modal/Modal';
 import UserPreview from '@/app/components/UserPreview/UserPreview';
-import EmailForm from '@/app/components/EmailForm/Emailform';
+import EmailForm from '@/app/components/EmailForm/EmailForm';
 
 function page({ params }) {
   const [jobOffer, setJobOffer] = useState(null);
