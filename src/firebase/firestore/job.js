@@ -15,6 +15,31 @@ import {
 
 const db = getFirestore(firebase_app);
 
+const getCurrentDateTime = () => {
+  var now = new Date();
+
+  var year = now.getFullYear();
+
+  var month = now.getMonth() + 1; // JavaScript months are 0-11
+  month = (month < 10 ? '0' : '') + month; // add a zero if it's only one digit
+
+  var day = now.getDate();
+  day = (day < 10 ? '0' : '') + day; // add a zero if it's only one digit
+
+  var hour = now.getHours();
+  hour = (hour < 10 ? '0' : '') + hour; // add a zero if it's only one digit
+
+  var minute = now.getMinutes();
+  minute = (minute < 10 ? '0' : '') + minute; // add a zero if it's only one digit
+
+  var second = now.getSeconds();
+  second = (second < 10 ? '0' : '') + second; // add a zero if it's only one digit
+
+  return (
+    year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second
+  );
+};
+
 // Create Job
 export async function createJob(
   title,
@@ -33,26 +58,6 @@ export async function createJob(
   var errorAddData = null;
   var docRef = null;
 
-  const currentDate = new Date();
-  const month = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec',
-  ];
-
-  const formattedDate = `${
-    month[currentDate.getMonth()]
-  }  ${currentDate.getDate()}, ${currentDate.getFullYear()}`;
-
   try {
     docRef = await addDoc(collection(db, 'jobOffers'), {
       title,
@@ -68,7 +73,7 @@ export async function createJob(
       paymentRange,
       experienceLevel,
       applicants: [],
-      publishedDate: formattedDate,
+      publishedDate: getCurrentDateTime(),
     });
   } catch (e) {
     errorAddData = e.message;
@@ -84,6 +89,26 @@ export async function getJob(job) {
 
   try {
     const docSnap = await getDoc(doc(db, 'jobOffers', job.id));
+    if (docSnap.exists()) {
+      docRef = { id: docSnap.id, ...docSnap.data() };
+    } else {
+      // docSnap.data() will be undefined in this case
+      console.log('No job in db!');
+    }
+  } catch (e) {
+    errorGet = e;
+    console.log(errorGet);
+  }
+
+  return { docRef, errorGet };
+}
+// Read Job By ID
+export async function getJobById(jobId) {
+  let docRef = null;
+  let errorGet = null;
+
+  try {
+    const docSnap = await getDoc(doc(db, 'jobOffers', jobId));
     if (docSnap.exists()) {
       docRef = { id: docSnap.id, ...docSnap.data() };
     } else {
@@ -198,6 +223,7 @@ export async function updateJob(
         applicantLimit,
         paymentRange,
         experienceLevel,
+        publishedDate: getCurrentDateTime(),
       },
       {
         merge: true,
@@ -224,20 +250,6 @@ export async function deleteJob(job) {
     deleteError = error.message;
   }
   return deleteError;
-}
-
-// Apply to job
-export async function handleJobApply(job, userData) {
-  // Update Firestore record
-  const jobRef = doc(db, 'jobOffers', job.id);
-
-  try {
-    await updateDoc(jobRef, {
-      applicants: arrayUnion(userData),
-    });
-  } catch (error) {
-    console.log(error.message);
-  }
 }
 
 // Update Job State

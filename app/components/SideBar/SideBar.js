@@ -70,11 +70,18 @@ function SideBar() {
           </>
         )}
         {user?.role === 'Professional' && (
-          <SideOption
-            title='Companies'
-            icon={<BsFillBuildingFill size={20} fill='#7C8AA3' />}
-            link='/companies'
-          />
+          <>
+            <SideOption
+              title='Companies'
+              icon={<BsFillBuildingFill size={20} fill='#7C8AA3' />}
+              link='/companies'
+            />
+            <SideOption
+              title='My Applications'
+              icon={<RiSuitcaseFill size={20} fill='#7C8AA3' />}
+              link='/my-applications'
+            />
+          </>
         )}
 
         {user?.role === 'Company' && (

@@ -6,7 +6,13 @@ import { useEffect } from 'react';
 import { getCompany } from '@/src/firebase/auth/signup';
 import Image from 'next/image';
 
-function JobOffer({ job, setModalOpen, setClickedCompany, setClickedJob }) {
+function JobOffer({
+  job,
+  setModalOpen,
+  setClickedCompany,
+  setClickedJob,
+  clickable,
+}) {
   const [companyInfo, setCompanyInfo] = useState('');
 
   useEffect(() => {
@@ -27,9 +33,11 @@ function JobOffer({ job, setModalOpen, setClickedCompany, setClickedJob }) {
       <div
         className={styles.container}
         onClick={() => {
-          setClickedCompany(companyInfo);
-          setClickedJob(job);
-          setModalOpen(true);
+          if (clickable) {
+            setClickedCompany(companyInfo);
+            setClickedJob(job);
+            setModalOpen(true);
+          }
         }}
       >
         <Image

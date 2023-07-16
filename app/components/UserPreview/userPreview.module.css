@@ -13,7 +13,7 @@
 .topInfoWrapper{
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 10px;
 }
 .userNameText{
     font-weight: 600;
@@ -40,4 +40,49 @@
     flex-direction: column;
     margin-top: 10px;
     gap: 5px;
+}
+
+.cvContainer{
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #EBEBEB;
+    padding: 15px 10px;
+}
+
+.leftContainer{
+    display: flex;
+    flex: 1;
+    gap: 10px;
+}
+
+.rightContainer{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.cvTitle{
+    font-size: 15px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all ease .2s;
+}
+
+.cvTitle:hover{
+    color: #D4B200;
+    text-decoration: underline;
+}
+
+.cvIconAddWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    padding: 4px;
+    transition: all ease .3s;
+}
+
+.cvIconAddWrapper:hover{
+    background-color: #EBEBEB;
+    cursor: pointer;
 }

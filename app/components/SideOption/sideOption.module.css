@@ -1,7 +1,6 @@
 .container{
     display: flex;
     align-items: center;
-    gap: 10px;
     border-radius: 4px;
     transition: all ease .3s;
     padding: 15px;
@@ -27,15 +26,23 @@
     background-color: #FFD731;
     cursor: pointer;
 }
-.container:hover .text{
+.container:hover .leftContainer .text{
     color: #000;
 }
-.container .iconWrapper > svg{
+.container .leftContainer .iconWrapper > svg{
     transition: all ease .3s;
 }
-.container:hover .iconWrapper > svg{
+.container:hover .leftContainer .iconWrapper > svg{
     fill: #000;
     color: #000;
+}
+.container:hover .counterNumberWrapper{
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.iconWrapper{
+    display: flex;
+    position: relative;
 }
 
 .text{
@@ -49,6 +56,36 @@
     color: #000;
     font-weight: 500;
     transition: all ease .3s;
+}
+
+.leftContainer{
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: 10px;
+    transition: all ease .3s;
+    text-decoration: none;
+}
+
+.counterNumberWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+    width: 15px;
+    height: 15px;
+    background-color: #FFD731;
+    border-radius: 4px;
+    transition: all ease .3s;
+    border-radius: 100%;
+    position: absolute;
+    top: -10px;
+    left: 10px;
+}
+.numberText {
+    color: #000;
+    font-weight: 500;
+    font-size: 10px;
 }
 
 @media screen and (max-width: 947px){

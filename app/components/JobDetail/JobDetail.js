@@ -23,6 +23,7 @@ function JobDetail({ clickedCompany, clickedJob, setClickedJob }) {
   const [selectedCVUrl, setSelectedCVUrl] = useState('');
   const [isModalCVOpen, setIsModalCVOpen] = useState(false);
   const [applyBtnClicked, setApplyBtnClicked] = useState(false);
+  const [alreadyApplied, setAlreadyApplied] = useState(false);
 
   const handleApply = () => {
     setIsModalCVOpen(true);
@@ -31,6 +32,18 @@ function JobDetail({ clickedCompany, clickedJob, setClickedJob }) {
   useEffect(() => {
     refetchJob();
   }, [applyBtnClicked]);
+
+  useEffect(() => {
+    if (user) {
+      checkIfUserHasAppliedAlready();
+    }
+  }, [clickedJob]);
+
+  useEffect(() => {
+    if (user) {
+      checkIfUserHasAppliedAlready();
+    }
+  }, []);
 
   const refetchJob = async () => {
     const { docRef, errorGet } = await getJob(clickedJob);
@@ -42,13 +55,13 @@ function JobDetail({ clickedCompany, clickedJob, setClickedJob }) {
 
   const checkIfUserHasAppliedAlready = () => {
     const found = clickedJob.applicants.find(
-      (applicant) => applicant.userId === user.uid
+      (applicant) => applicant === user.uid
     );
 
     if (found) {
-      return true;
+      setAlreadyApplied(true);
     } else {
-      return false;
+      setAlreadyApplied(false);
     }
   };
 
@@ -84,21 +97,19 @@ function JobDetail({ clickedCompany, clickedJob, setClickedJob }) {
         </p>
       </div>
       {user ? (
-        checkIfUserHasAppliedAlready() ? (
-          <button
-            className={styles.applyBtn}
-            onClick={() => handleApply()}
-            disabled={true}
-          >
-            <p className={styles.applyBtnText}>Already Applied</p>
-            <BsArrowUpRightCircle color='rgba(0,0,0,0.2)' size={20} />
-          </button>
-        ) : (
-          <button className={styles.applyBtn} onClick={() => handleApply()}>
-            <p className={styles.applyBtnText}>Apply</p>
-            <BsArrowUpRightCircle color='#000' size={20} />
-          </button>
-        )
+        <button
+          className={styles.applyBtn}
+          onClick={() => handleApply()}
+          disabled={alreadyApplied}
+        >
+          <p className={styles.applyBtnText}>
+            {alreadyApplied ? 'Already applied' : 'Apply'}
+          </p>
+          <BsArrowUpRightCircle
+            color={alreadyApplied ? 'rgba(0,0,0,0.5)' : '#000'}
+            size={20}
+          />
+        </button>
       ) : (
         <button
           className={styles.applyBtn}

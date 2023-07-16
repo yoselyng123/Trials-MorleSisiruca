@@ -1,0 +1,91 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    gap: 20px;
+    cursor: pointer;
+    
+}
+
+.topContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding-bottom: 15px;
+    border-bottom: 0.5px solid rgba(0,0,0,0.1);
+}
+.title {
+    font-size: 24px;
+    font-weight: 600;
+}
+.text {
+    font-size: 15px;
+    font-weight: 400;
+    color: rgba(0,0,0,0.5);
+}
+.notificationsWrapper {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 20px;
+}
+.notificationContainer {
+    display: flex;
+    flex: 1;
+    gap: 15px;
+    background-color: #FFF;
+    border-radius: 10px;
+    padding: 20px;
+    align-items: center;
+    transition: all ease .3s;
+}
+
+.notificationContainer:hover{
+    background-color: rgba(240, 240, 240, 0.861);
+}
+
+.topSection {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    gap: 20px;
+}
+.notificationTitle {
+    font-weight: 600;
+    font-size: 16px;
+}
+.notificationTime {
+    font-weight: 600;
+    font-size: 14px;
+    color: rgba(0,0,0,0.5);
+}
+.notificationText {
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.circle{
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    background-color: #2D8EFF;
+}
+.rightContainer{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.noResultText{
+    font-style: italic;
+    font-size: 13px;
+    color: rgba(0,0,0,0.3);
+}
+
+.IconContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000;
+}

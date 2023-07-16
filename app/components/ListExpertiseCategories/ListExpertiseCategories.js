@@ -14,15 +14,6 @@ function ListExpertiseCategories({ title, listElements }) {
           </div>
         ))}
       </div>
-
-      {listElements.length > 3 && (
-        <button className={styles.showAllBtn}>
-          <p className={styles.showAllText}>
-            Show all {listElements.length} elements
-          </p>
-          <AiOutlineArrowRight color='rgba(0, 0, 0, 0.6)' size={20} />
-        </button>
-      )}
     </div>
   );
 }

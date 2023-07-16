@@ -7,11 +7,17 @@ import { useRouter } from 'next/navigation';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from '@/src/firebase/firebase.config';
 import CandidateTableElement from '@/app/components/CandidateTableElement/CandidateTableElement';
+import { getApplicationByJobOfferId } from '@/src/firebase/firestore/application';
+import Modal from '@/app/components/Modal/Modal';
+import UserPreview from '@/app/components/UserPreview/UserPreview';
+import EmailForm from '@/app/components/EmailForm/Emailform';
 
 function page({ params }) {
-  const [numberOfItems, setNumberOfItems] = useState(5);
-
   const [jobOffer, setJobOffer] = useState(null);
+  const [listOfApplications, setListOfApplications] = useState([]);
+  const [userPreviewInfo, setUserPreviewInfo] = useState({});
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalEmailOpen, setModalEmailOpen] = useState(false);
 
   const router = useRouter();
 
@@ -22,8 +28,9 @@ function page({ params }) {
 
     const unsubscribe = onSnapshot(
       documentRef,
-      (doc) => {
+      async (doc) => {
         if (doc.exists()) {
+          await handleGetApplications(doc.id);
           setJobOffer({ id: doc.id, ...doc.data() });
         } else {
           console.log('No such document!');
@@ -37,7 +44,19 @@ function page({ params }) {
     return unsubscribe;
   }, [params]);
 
-  if (jobOffer) {
+  const handleGetApplications = async (jobOfferId) => {
+    const { applicationsListRef, errorGet } = await getApplicationByJobOfferId(
+      jobOfferId
+    );
+
+    if (applicationsListRef) {
+      setListOfApplications(applicationsListRef);
+    } else {
+      console.log('ERROR GETTING APPLICATIONS LIST');
+    }
+  };
+
+  if (jobOffer && listOfApplications) {
     return (
       <div className={styles.container}>
         <div className={styles.contentWrapper}>
@@ -73,30 +92,48 @@ function page({ params }) {
               <div className={styles.sectionWrapper}>
                 <p className={styles.highlightText}>Stage</p>
               </div>
+              <div className={styles.sectionWrapper}>
+                <p className={styles.highlightText}>Email</p>
+              </div>
             </div>
             <div className={styles.tableContent}>
-              {jobOffer.applicants.map((application, index) => (
-                <CandidateTableElement application={application} />
-              ))}
+              {listOfApplications &&
+                listOfApplications.map((application, index) => (
+                  <CandidateTableElement
+                    application={application}
+                    key={index}
+                    jobOffer={jobOffer}
+                    setUserPreviewInfo={setUserPreviewInfo}
+                    setModalOpen={setModalOpen}
+                    setModalEmailOpen={setModalEmailOpen}
+                  />
+                ))}
             </div>
           </div>
         </div>
-        {/* <div className={styles.footer}>
-            <div className={styles.viewContentWrapper}>
-              <p> View</p>
-              <Filter
-                title='5'
-                icon={<div></div>}
-                setSelectedOption={setNumberOfItems}
-                selectedOption={numberOfItems}
+
+        {/* Modal User Preview*/}
+        {modalOpen && userPreviewInfo && (
+          <Modal
+            setIsOpen={setModalOpen}
+            modalContent={
+              <UserPreview
+                clickedUser={userPreviewInfo.user}
+                cvURL={userPreviewInfo.cvURL}
+                hasCV={true}
               />
-              <p className={styles.jobTypeText}>Candidates per page</p>
-            </div>
-          </div> */}
+            }
+          />
+        )}
+        {/* Modal Email*/}
+        {modalEmailOpen && userPreviewInfo && (
+          <Modal
+            setIsOpen={setModalEmailOpen}
+            modalContent={<EmailForm userInfo={userPreviewInfo.user} />}
+          />
+        )}
       </div>
     );
-  } else {
-    return null;
   }
 }
 

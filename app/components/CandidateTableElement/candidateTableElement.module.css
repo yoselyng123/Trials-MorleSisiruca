@@ -3,8 +3,15 @@
     display: flex;
     flex: 1;
     align-items: center;
-    padding: 20px 30px;
+    padding: 20px 30px; 
+    transition: all ease .3s;
 }
+
+.tableElement:hover{
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
 .sectionContentWrapper {
     display: flex;
     flex: 1;
@@ -27,6 +34,7 @@
     font-size: 15px;
     font-weight: 500;
 }
+
 .stageText {
     font-size: 15px;
     font-style: italic;
@@ -41,4 +49,18 @@
     text-decoration: underline;
     color: #D4B200;
     cursor: pointer;
+}
+
+.iconWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 100%;
+    transition: all ease .3s;
+}
+
+.iconWrapper:hover{
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.1);
 }

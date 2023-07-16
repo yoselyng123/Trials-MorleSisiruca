@@ -245,6 +245,7 @@ export default function Home() {
                 setModalOpen={setModalOpen}
                 setClickedCompany={setClickedCompany}
                 setClickedJob={setClickedJob}
+                clickable={true}
               />
             ))
           ) : (

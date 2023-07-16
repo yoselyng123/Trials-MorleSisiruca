@@ -1,0 +1,38 @@
+.container{
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    padding: 30px;
+    border-radius: 10px;
+    align-items: center;
+}
+
+.leftContainer{
+    display: flex;
+    flex: 2;
+    flex-direction: column;
+    gap: 5px;
+}
+.jobTitle{
+    font-weight: 600;
+    font-size: 17px;
+}
+.companyName{
+    font-weight: 500;
+    font-size: 15px;
+}
+.rightContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.stateText{
+    color: #426866;
+    font-weight: 600;
+    font-size: 15px;
+}
+.applicantsQuantity{
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.5);
+}
