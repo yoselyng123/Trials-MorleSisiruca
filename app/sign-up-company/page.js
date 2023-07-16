@@ -1,5 +1,5 @@
 'use client';
-import styles from './SignUpCompany.module.css';
+import styles from './signUpCompany.module.css';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { signUpWithEmailAndPasswordCompany } from '@/src/firebase/auth/signup';
