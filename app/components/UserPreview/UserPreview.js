@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import styles from './userPreview.module.css';
 import ListExpertiseCategories from '../ListExpertiseCategories/ListExpertiseCategories';
 import { AiFillEye } from 'react-icons/ai';
+import Image from 'next/image';
 
 function UserPreview({ clickedUser, hasCV, cvURL }) {
   const defaultAvatar =
@@ -40,10 +41,12 @@ function UserPreview({ clickedUser, hasCV, cvURL }) {
 
   return (
     <div className={styles.container}>
-      <img
+      <Image
         src={clickedUser?.profilePic ? clickedUser?.profilePic : defaultAvatar}
         alt='avatar'
         className={styles.profileAvatar}
+        width={100}
+        height={100}
       />
       <div className={styles.topInfoWrapper}>
         <p

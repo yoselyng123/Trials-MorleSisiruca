@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './searchCard.module.css';
+import Image from 'next/image';
 
 function SearchCard({ setClickedElement, searchObj, name, setModalOpen }) {
   const defaultAvatar =
@@ -15,10 +16,12 @@ function SearchCard({ setClickedElement, searchObj, name, setModalOpen }) {
         }
       }}
     >
-      <img
+      <Image
         className={styles.personalAvatar}
         alt='avatar'
         src={searchObj?.profilePic ? searchObj?.profilePic : defaultAvatar}
+        width={60}
+        height={60}
       />
       <div className={styles.cardInfoWrapper}>
         <p className={styles.cardTitle}>{name}</p>
