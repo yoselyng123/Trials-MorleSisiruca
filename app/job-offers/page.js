@@ -124,6 +124,12 @@ function pages() {
     }
   };
 
+  useEffect(() => {
+    if (search === '') {
+      handleSearch();
+    }
+  }, [search]);
+
   return (
     <div className={styles.container}>
       <div className={styles.searchWrapper}>
@@ -210,6 +216,7 @@ function pages() {
               updateJobBtnClick={updateJobBtnClick}
               setUpdateJobBtnClick={setUpdateJobBtnClick}
               setDeleteJobBtnClick={setDeleteJobBtnClick}
+              setModalOpen={setModalOpen}
             />
           }
           overwriteStyle={{

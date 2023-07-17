@@ -62,5 +62,6 @@
 @media screen and (max-width: 659px){
     .modal{
         width: 90vw;
+        height: 80vh;
     }
 }

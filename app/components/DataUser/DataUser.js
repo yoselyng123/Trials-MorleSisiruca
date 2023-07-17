@@ -251,10 +251,6 @@ function DataUser({ saveBtnClick, setSaveBtnClick, loading, setLoading }) {
               setAddFormModalOpen={setModalOpen}
             />
           }
-          overwriteStyle={{
-            width: '50vw',
-            height: '70vh',
-          }}
           overWriteStyleModalContent={{
             padding: '0px',
           }}

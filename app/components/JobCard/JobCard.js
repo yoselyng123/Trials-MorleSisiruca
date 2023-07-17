@@ -45,7 +45,7 @@ function JobCard({ job, setClickedJob, setModalOpen }) {
                   {job.applicants.length}
                 </p>
               </div>
-              <div
+              {/* <div
                 className={styles.candidatesCounterWrapper}
                 style={{ borderLeft: '2.5px solid #2D8EFF' }}
               >
@@ -53,7 +53,7 @@ function JobCard({ job, setClickedJob, setModalOpen }) {
                 <p className={styles.candidatesCounterText}>
                   {job.applicants.length}
                 </p>
-              </div>
+              </div> */}
             </div>
           ) : (
             <div className={styles.iconCandidatesWrapper}>

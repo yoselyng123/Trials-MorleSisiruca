@@ -89,6 +89,9 @@ export async function getApplicationByUserId(userId) {
       // doc.data() is never undefined for query doc snapshots
       applicationsListRef.push({ id: doc.id, ...doc.data() });
     });
+    applicationsListRef.sort(
+      (a, b) => new Date(b.dateApplied) - new Date(a.dateApplied)
+    );
   } catch (e) {
     errorGet = e;
     console.log(errorGet);
@@ -114,6 +117,9 @@ export async function getApplicationByCompanyId(companyId) {
       // doc.data() is never undefined for query doc snapshots
       applicationsListRef.push({ id: doc.id, ...doc.data() });
     });
+    applicationsListRef.sort(
+      (a, b) => new Date(b.dateApplied) - new Date(a.dateApplied)
+    );
   } catch (e) {
     errorGet = e;
     console.log(errorGet);

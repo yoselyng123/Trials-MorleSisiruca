@@ -1,3 +1,4 @@
+'use client';
 import React, { useEffect, useState } from 'react';
 import styles from './jobOfferForm.module.css';
 import InputBox from '../InputBox/InputBox';
@@ -11,6 +12,9 @@ import {
 } from '@/src/firebase/firestore/job';
 import { useAuthContext } from '@/src/context/AuthContext';
 import SearchBar from '../SearchBar/SearchBar';
+import Modal from '../Modal/Modal';
+import ConfirmationPrompt from '../ConfirmationPrompt/ConfirmationPrompt';
+import CustomMessageForm from '../CustomMessageForm/CustomMessageForm';
 
 function JobOfferForm({
   createJobBtnClick,
@@ -19,6 +23,7 @@ function JobOfferForm({
   setUpdateJobBtnClick,
   typeForm,
   job,
+  setParentModalOpen,
 }) {
   const { user } = useAuthContext();
 
@@ -33,6 +38,11 @@ function JobOfferForm({
   const [paymentRange, setPaymentRange] = useState('');
   const [listExpertiseAreas, setListExpertiseAreas] = useState([]);
   const [listJobCategories, setListJobCategories] = useState([]);
+
+  const [promptClicked, setPromptClicked] = useState(false);
+  const [modalPromptOpen, setModalPromptOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [finishUpdate, setFinishUpdate] = useState(false);
 
   const handleDeleteExpertiseArea = (index) => {
     var copyOfListExpertiseArea = [...listExpertiseAreas];
@@ -75,6 +85,7 @@ function JobOfferForm({
       setListExpertiseAreas([]);
       setListJobCategories([]);
       setExperienceLevel('');
+      setPaymentRange('');
     } else {
       console.log('ERROR CREATING JOB OFFER');
     }
@@ -83,6 +94,14 @@ function JobOfferForm({
   };
 
   const handleUpdateJob = async () => {
+    if (jobState === 'closed' && job.applicants.length !== 0) {
+      setModalPromptOpen(true);
+    } else {
+      handleFinishUpdate();
+    }
+  };
+
+  const handleFinishUpdate = async () => {
     const { jobRefUpdate, errorUpdate, errorGetUpdate } = await updateJob(
       job,
       jobTitle,
@@ -98,8 +117,6 @@ function JobOfferForm({
       experienceLevel
     );
 
-    console.log(jobRefUpdate);
-
     if (jobRefUpdate) {
       alert('Job offer has been updated successfully!');
       setJobTitle(jobRefUpdate.title);
@@ -112,10 +129,13 @@ function JobOfferForm({
       setListExpertiseAreas(jobRefUpdate.expertiseAreas);
       setListJobCategories(jobRefUpdate.jobCategories);
       setExperienceLevel(jobRefUpdate?.experienceLevel);
+      setPaymentRange(jobRefUpdate?.paymentRange);
     } else {
       console.log('ERROR UPDATING JOB OFFER');
     }
+
     setUpdateJobBtnClick(false);
+    setParentModalOpen(false);
   };
 
   useEffect(() => {
@@ -123,6 +143,12 @@ function JobOfferForm({
       handleCreateJob();
     }
   }, [createJobBtnClick]);
+
+  useEffect(() => {
+    if (finishUpdate) {
+      handleFinishUpdate();
+    }
+  }, [finishUpdate]);
 
   useEffect(() => {
     if (updateJobBtnClick) {
@@ -150,6 +176,12 @@ function JobOfferForm({
       }
     }
   }, []);
+
+  useEffect(() => {
+    if (promptClicked === 'no') {
+      handleFinishUpdate();
+    }
+  }, [promptClicked]);
 
   return (
     <div className={styles.jobForm}>
@@ -307,6 +339,47 @@ function JobOfferForm({
           />
         </div>
       </div>
+
+      {/* Modal */}
+      {modalPromptOpen && (
+        <Modal
+          setIsOpen={setModalPromptOpen}
+          modalContent={
+            <ConfirmationPrompt
+              setPromptClicked={setPromptClicked}
+              setModalOpen={setModalOpen}
+              setModalPromptOpen={setModalPromptOpen}
+            />
+          }
+          overwriteStyle={{
+            width: '30vw',
+            height: '20vh',
+          }}
+          overWriteStyleModalContent={{
+            padding: '0px',
+          }}
+        />
+      )}
+      {/* Modal */}
+      {promptClicked === 'yes' && modalOpen && (
+        <Modal
+          setIsOpen={setModalOpen}
+          modalContent={
+            <CustomMessageForm
+              jobOffer={job}
+              setModalOpen={setModalOpen}
+              setFinishUpdate={setFinishUpdate}
+            />
+          }
+          overwriteStyle={{
+            width: '50vw',
+            height: '50vh',
+          }}
+          overWriteStyleModalContent={{
+            padding: '0px',
+          }}
+        />
+      )}
     </div>
   );
 }

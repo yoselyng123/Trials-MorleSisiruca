@@ -1,6 +1,6 @@
 'use client';
 import styles from './signUpCompany.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { signUpWithEmailAndPasswordCompany } from '@/src/firebase/auth/signup';
 import { useLoadScript } from '@react-google-maps/api';
@@ -21,6 +21,7 @@ function page() {
   const [location, setLocation] = useState('');
   const [webUrl, setWebUrl] = useState('');
   const [mapCoordinates, setMapCoordinates] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const userInputValidations = () => {
     //TODO: HACER VALIDACIONES
@@ -34,7 +35,8 @@ function page() {
       password,
       name,
       location,
-      webUrl
+      webUrl,
+      setLoading
     );
 
     if (userRef) {
@@ -111,7 +113,7 @@ function page() {
           </>
         )}
 
-        <button type='submit' className={styles.btnSignUp}>
+        <button type='submit' className={styles.btnSignUp} disabled={loading}>
           Sign up
         </button>
       </form>

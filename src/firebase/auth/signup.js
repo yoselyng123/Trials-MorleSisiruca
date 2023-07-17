@@ -49,8 +49,10 @@ export async function signUpWithEmailAndPasswordCompany(
   password,
   name,
   location,
-  webUrl
+  webUrl,
+  setLoading
 ) {
+  setLoading(true);
   var userRef = null;
   var errorSignUp = null;
   try {
@@ -76,7 +78,7 @@ export async function signUpWithEmailAndPasswordCompany(
     errorSignUp = e;
     console.log(errorSignUp);
   }
-
+  setLoading(false);
   return { userRef, errorSignUp };
 }
 

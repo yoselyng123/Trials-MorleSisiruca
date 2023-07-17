@@ -132,99 +132,106 @@ function EducationForm({
 
   return (
     <div className={styles.container}>
-      <InputBox
-        value={schoolName}
-        setValue={setSchoolName}
-        placeholder='Ex: Universidad Metropolitana'
-        label='School'
-        overWriteStyle={{
-          padding: '8px',
-        }}
-      />
-      <InputBox
-        value={degree}
-        setValue={setDegree}
-        placeholder='Ex: Bachelor'
-        label='Degree'
-        overWriteStyle={{
-          padding: '8px',
-        }}
-      />
-      <div style={{ display: 'flex', gap: '10px' }}>
-        <InputBox
-          value={fieldOfStudy}
-          setValue={setFieldOfStudy}
-          placeholder='Ex: Software Engineer'
-          label='Field of study'
-          overWriteStyle={{
-            padding: '8px',
-          }}
-        />
-        <div className={styles.filterWrapper}>
-          <p className={styles.labelText}>Location</p>
+      <div className={styles.formWrapper}>
+        <div>
+          <InputBox
+            value={schoolName}
+            setValue={setSchoolName}
+            placeholder='Ex: Universidad Metropolitana'
+            label='School'
+            overWriteStyle={{
+              padding: '8px',
+            }}
+          />
+        </div>
+        <div>
+          <InputBox
+            value={degree}
+            setValue={setDegree}
+            placeholder='Ex: Bachelor'
+            label='Degree'
+            overWriteStyle={{
+              padding: '8px',
+            }}
+          />
+        </div>
+        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+          <InputBox
+            value={fieldOfStudy}
+            setValue={setFieldOfStudy}
+            placeholder='Ex: Software Engineer'
+            label='Field of study'
+            overWriteStyle={{
+              padding: '8px',
+            }}
+          />
+          <div className={styles.filterWrapper}>
+            <p className={styles.labelText}>Location</p>
+            <Filter
+              title='Location'
+              options={countryList}
+              selectedOption={location}
+              setSelectedOption={setLocation}
+              overwriteStyle={{
+                padding: '6px',
+                borderRadius: '4px',
+              }}
+            />
+          </div>
+        </div>
+
+        <p className={styles.labelText}>Start Date</p>
+        <div className={styles.dateWrapper}>
           <Filter
-            title='Location'
-            options={countryList}
-            selectedOption={location}
-            setSelectedOption={setLocation}
+            selectedOption={startMonth}
+            setSelectedOption={setStartMonth}
+            title='Month'
+            options={monthsOption}
+            overwriteStyle={{
+              padding: '6px',
+              borderRadius: '4px',
+            }}
+          />
+          <Filter
+            selectedOption={startYear}
+            setSelectedOption={setStartYear}
+            options={yearListOptions}
+            overwriteStyle={{
+              padding: '6px',
+              borderRadius: '4px',
+            }}
+            title='Year'
+          />
+        </div>
+        <p className={styles.labelText}>End Date</p>
+        <div className={styles.dateWrapper}>
+          <Filter
+            selectedOption={endMonth}
+            setSelectedOption={setEndMonth}
+            title='Month'
+            options={monthsOption}
+            overwriteStyle={{
+              padding: '6px',
+              borderRadius: '4px',
+            }}
+          />
+          <Filter
+            selectedOption={endYear}
+            setSelectedOption={setEndYear}
+            title='Year'
+            options={yearListOptions}
             overwriteStyle={{
               padding: '6px',
               borderRadius: '4px',
             }}
           />
         </div>
+        <AchievementsList
+          achievements={achievements}
+          setAchievements={setAchievements}
+        />
       </div>
 
-      <p className={styles.labelText}>Start Date</p>
-      <div className={styles.dateWrapper}>
-        <Filter
-          selectedOption={startMonth}
-          setSelectedOption={setStartMonth}
-          title='Month'
-          options={monthsOption}
-          overwriteStyle={{
-            padding: '6px',
-            borderRadius: '4px',
-          }}
-        />
-        <Filter
-          selectedOption={startYear}
-          setSelectedOption={setStartYear}
-          options={yearListOptions}
-          overwriteStyle={{
-            padding: '6px',
-            borderRadius: '4px',
-          }}
-          title='Year'
-        />
-      </div>
-      <p className={styles.labelText}>End Date</p>
-      <div className={styles.dateWrapper}>
-        <Filter
-          selectedOption={endMonth}
-          setSelectedOption={setEndMonth}
-          title='Month'
-          options={monthsOption}
-          overwriteStyle={{
-            padding: '6px',
-            borderRadius: '4px',
-          }}
-        />
-        <Filter
-          selectedOption={endYear}
-          setSelectedOption={setEndYear}
-          title='Year'
-          options={yearListOptions}
-          overwriteStyle={{
-            padding: '6px',
-            borderRadius: '4px',
-          }}
-        />
-      </div>
-      <AchievementsList
-        achievements={achievements}
-        setAchievements={setAchievements}
-      />
       <div className={styles.footer}>
         {type === 'edit' && (
           <div className={styles.btnWrapper}>

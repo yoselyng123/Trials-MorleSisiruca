@@ -87,6 +87,16 @@ function page() {
     }
   };
 
+  useEffect(() => {
+    if (
+      searchCompanyTitle === '' &&
+      selectedCountry === '' &&
+      selectedExpertiseArea === ''
+    ) {
+      handleSearch();
+    }
+  }, [searchCompanyTitle, selectedCountry, selectedExpertiseArea]);
+
   return (
     <div className={styles.container}>
       <div className={styles.contentWrapper}>

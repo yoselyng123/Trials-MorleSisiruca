@@ -1,0 +1,93 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.topHeader {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px 30px;
+    background-color: #fff;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    flex: none;
+}
+.personalAvatar {
+    border-radius: 100%;
+}
+.nameText {
+    font-weight: 600;
+    font-size: 17px;
+    letter-spacing: 0.5px;
+}
+.textsWrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 20px 30px;
+    overflow-y: scroll;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+.receiverContainer {
+    display: flex;
+    flex: none;
+    flex-wrap: wrap;
+    background-color: #FFD731;
+    border-radius: 10px;
+    padding: 10px;
+    width: 80%;
+    max-height: fit-content;
+    align-self: flex-start;
+}
+.senderContainer {
+    display: flex;
+    flex: none;
+    max-height: fit-content;
+    flex-wrap: wrap;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 10px;
+    width: 80%;
+    align-self: flex-end;
+}
+.message {
+    font-size: 15px;
+    font-weight: 500;
+}
+.messageSenderWrapper {
+    flex: none;
+    display: flex;
+    gap: 10px;
+    padding: 15px 10px 15px 10px;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.27);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(2.3px);
+    -webkit-backdrop-filter: blur(2.3px);
+}
+.messageInput {
+    display: flex;
+    flex: 1;
+    padding: 15px 25px;
+    border: 1px solid #FFD731 ;
+    background-color: transparent;
+    border-radius: 10px;
+    outline: none;
+}
+.sendIconWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FFD731;
+    border-radius: 100%;
+    padding: 10px;
+    transition: all ease;
+
+}
+
+.sendIconWrapper:hover{
+    background-color: #D4B200;
+    cursor: pointer;
+    
+}

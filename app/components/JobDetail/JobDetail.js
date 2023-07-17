@@ -164,10 +164,6 @@ function JobDetail({ clickedCompany, clickedJob, setClickedJob }) {
               applyBtnClicked={applyBtnClicked}
             />
           }
-          overwriteStyle={{
-            width: '40vw',
-            height: '40vh',
-          }}
           overWriteStyleModalContent={{
             padding: '0px',
           }}

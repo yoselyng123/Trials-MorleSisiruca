@@ -83,7 +83,7 @@ function page() {
     <div className={styles.container}>
       <div className={styles.topContainer}>
         <p className={styles.title}>Notifications</p>
-        <p className={styles.text}>You've got {countNew} notifications</p>
+        <p className={styles.text}>You've got {countNew} new notifications</p>
       </div>
       <div className={styles.notificationsWrapper}>
         {notificationsList.length > 0 ? (

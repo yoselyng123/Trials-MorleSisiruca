@@ -77,9 +77,9 @@ function SignInPage() {
           <button className={styles.btnSocial} onClick={handleSignInWithGithub}>
             <AiFillGithub size={18} /> GitHub
           </button>
-          <button className={styles.btnSocial}>
+          {/* <button className={styles.btnSocial}>
             <AiFillLinkedin size={18} /> Linkedin
-          </button>
+          </button> */}
         </div>
       </form>
     </div>

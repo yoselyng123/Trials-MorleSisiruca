@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './editJob.module.css';
 import ActionBtn from '../ActionBtn/ActionBtn';
 import { AiOutlineArrowRight } from 'react-icons/ai';
@@ -13,11 +13,16 @@ function EditJob({
   updateJobBtnClick,
   setUpdateJobBtnClick,
   setDeleteJobBtnClick,
+  setModalOpen,
 }) {
   const { user } = useAuthContext();
 
   const [loadingChanges, setLoadingChanges] = useState(false);
   const [loadingDelete, setLoadingDelete] = useState(false);
+
+  useEffect(() => {
+    setUpdateJobBtnClick(false);
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -56,6 +61,7 @@ function EditJob({
         setUpdateJobBtnClick={setUpdateJobBtnClick}
         typeForm='update'
         job={clickedJob}
+        setParentModalOpen={setModalOpen}
       />
     </div>
   );

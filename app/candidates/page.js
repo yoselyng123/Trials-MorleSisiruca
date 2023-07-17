@@ -38,9 +38,14 @@ function page() {
   }, [user]);
 
   useEffect(() => {
-    console.log(modalOpen);
-    console.log(clickedUser);
-  }, [modalOpen, clickedUser]);
+    if (
+      searchCandidateName === '' &&
+      selectedCountry === '' &&
+      selectedExpertiseArea === ''
+    ) {
+      handleSearch();
+    }
+  }, [searchCandidateName, selectedCountry, selectedExpertiseArea]);
 
   const handleGetCandidatesList = async () => {
     const { companyListRef, errorGet } = await getUserByRole('Professional');
@@ -125,13 +130,13 @@ function page() {
             <div className={styles.filtersWrapperRight}>
               <Filter
                 title='Specialty'
-                options={expertiseAreas}
+                options={expertiseAreas.sort()}
                 setSelectedOption={setSelectedExpertiseArea}
                 selectedOption={selectedExpertiseArea}
               />
               <Filter
                 title='Location'
-                options={countryList}
+                options={countryList.sort()}
                 setSelectedOption={setSelectedCountry}
                 selectedOption={selectedCountry}
               />

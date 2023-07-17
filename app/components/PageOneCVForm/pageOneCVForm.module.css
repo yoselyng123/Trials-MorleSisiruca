@@ -21,6 +21,7 @@
 
 .topContainer{
     display: flex;
+    flex: 1;
     gap: 10px;
 }
 
@@ -42,4 +43,10 @@
 
 .filterWrapper{
     margin-bottom: 20px;
+}
+
+@media screen and (max-width: 700px){
+    .topContainer{
+        flex-direction: column;
+    }
 }

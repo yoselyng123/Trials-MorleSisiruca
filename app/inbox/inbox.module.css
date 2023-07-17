@@ -1,0 +1,36 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 30px;
+}
+.contentWrapper{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+}
+.pageTitle{
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+}
+
+.leftContainer{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 20px;
+}
+
+.chatsWrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.noResultText{
+    font-style: italic;
+    font-size: 13px;
+    color: rgba(0,0,0,0.3);
+}

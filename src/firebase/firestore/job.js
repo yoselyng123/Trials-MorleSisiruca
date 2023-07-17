@@ -157,6 +157,9 @@ export async function getJobsListByState(state) {
       // doc.data() is never undefined for query doc snapshots
       jobsListRef.push({ id: doc.id, ...doc.data() });
     });
+    jobsListRef.sort(
+      (a, b) => new Date(b.publishedDate) - new Date(a.publishedDate)
+    );
   } catch (e) {
     errorGet = e;
     console.log(errorGet);

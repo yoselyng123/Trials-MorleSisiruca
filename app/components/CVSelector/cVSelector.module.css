@@ -13,10 +13,9 @@
 }
 .cvListWrapper {
     display: flex;
+    flex: 1;
     flex-direction: column;
     gap: 10px;
-    align-items: center;
-    flex-grow: 1;
 }
 .cvOption {
     display: flex;
@@ -26,7 +25,8 @@
     border-radius: 4px;
 }
 .cvText {
-
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .footer{

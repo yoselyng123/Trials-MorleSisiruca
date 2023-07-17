@@ -1,0 +1,57 @@
+.container {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: 10px;
+    background-color: #FFF;
+    border-radius: 10px;
+    padding: 15px;
+    transition: all ease .3s;
+}
+
+.container:hover{
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.midContainer {
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.leftContainer{
+    display: flex;
+    flex: 1;
+    gap: 15px;
+}
+
+.personalAvatar{
+    border-radius: 100%;
+    flex: none;
+}
+
+.name {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.rightContainer{
+    display: flex;
+    align-self: flex-start;
+    justify-content: flex-end;
+    flex: 1
+
+}
+.message {
+    font-size: 15px;
+}
+.notificationTime {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.4);
+}

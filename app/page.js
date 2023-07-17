@@ -106,8 +106,8 @@ export default function Home() {
       );
     }
     if (searchCountry !== '') {
-      result = result.filter(
-        (job) => job.location.toLowerCase() === searchCountry.toLowerCase()
+      result = result.filter((job) =>
+        job.location.toLowerCase().includes(searchCountry.toLowerCase())
       );
     }
     if (selectedCategory !== '') {
@@ -141,9 +141,19 @@ export default function Home() {
     }
   };
 
-  // useEffect(() => {
-  //   handleSearch();
-  // }, [searchJobTitle, searchCountry, selectedCategory, selectedPaymentRange]);
+  useEffect(() => {
+    if (
+      searchJobTitle === '' &&
+      searchCountry === '' &&
+      selectedCategory === '' &&
+      selectedPaymentRange === '' &&
+      selectedCompany === '' &&
+      selectedExperienceLevel === '' &&
+      selectedJobType === ''
+    ) {
+      handleSearch();
+    }
+  }, [searchJobTitle, searchCountry, selectedCategory, selectedPaymentRange]);
 
   return (
     <main className={styles.main}>
@@ -165,7 +175,7 @@ export default function Home() {
             />
             <SearchBar
               placeholder='country'
-              data={countryList}
+              data={countryList.sort()}
               setSelectedData={setSearchCountry}
               selectedData={searchCountry}
               oneOption={true}
@@ -182,7 +192,7 @@ export default function Home() {
             <div className={styles.filtersWrapperRight}>
               <Filter
                 title='Job categories'
-                options={jobCategories}
+                options={jobCategories.sort()}
                 setSelectedOption={setSelectedCategory}
                 selectedOption={selectedCategory}
               />
@@ -215,7 +225,7 @@ export default function Home() {
                   />
                   <Filter
                     title='Company'
-                    options={companyNamesList}
+                    options={companyNamesList.sort()}
                     setSelectedOption={setSelectedCompany}
                     selectedOption={selectedCompany}
                   />
